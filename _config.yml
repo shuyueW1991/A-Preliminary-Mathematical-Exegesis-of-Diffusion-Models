@@ -2,6 +2,8 @@ title: PrgM2 /pR\'gem/2
 theme: just-the-docs
 url: "https://shuyueW1991.github.io/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models"
 baseurl: "/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models"
+# url: "https://shuyueW1991.github.io/repo-name"
+# baseurl: "/repo-name"
 
 # Just the Docs configuration
 just_the_docs:
@@ -18,3 +20,22 @@ search_enabled: false
 
 head_scripts:
   - /assets/js/custom.js
+  - custom-head.html
+
+
+
+
+# Enable kramdown for LaTeX
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
+head_scripts:
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML
+
+mathjax:
+  tex:
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ]
+    processEscapes: true  # Critical for dollar signs
