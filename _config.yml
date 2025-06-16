@@ -1,0 +1,20 @@
+title: PrgM2 /pR\'gem/2
+theme: just-the-docs
+url: "https://shuyueW1991.github.io/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models"
+baseurl: "/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models"
+
+# Just the Docs configuration
+just_the_docs:
+  # Define your collections
+  collections:
+    book:
+      output: true
+
+# Disable search if you prefer
+search_enabled: false
+
+# Optional: Add Google Analytics
+# google_analytics: UA-XXXXX-Y
+
+head_scripts:
+  - /assets/js/custom.js
