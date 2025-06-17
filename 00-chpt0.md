@@ -40,11 +40,12 @@ I will slow down where I once struggled, so the readers might have an easier tim
 The booklet’s theoretical progression relies on a few carefully chosen _deus ex machina_ elements—unavoidable but kept to a minimum.
 The term _deus ex machina_ (Latin for "god from the machine") originates from ancient Greek theater, where an external intervention abruptly resolved a tangled plot. 
 In this context, it refers to key assumptions or mathematical tools that enable deductions which might otherwise seem unmotivated.
-Each such device will be explicitly introduced and justified
+Each such device will be explicitly introduced and justified:
 - The use of Chebyshev inequality to bound the dot product between high-dimensional data.
 - The introduction of latent variables (denoted as *z*) as a modeling construct.
 - The use of KL divergence to measure distributional distances, along with its mathematical properties and role in derivations.
-- The choice of Gaussian priors as the default sampling distribution.
+- The Itô SDE and Fokker-Planck equation that evolves the sampled data distribution in the long run.
+- Central Limit Theorem, that provides a mathematically convincing path to the beautiful Gaussian distribution.
 By making these deliberate concessions explicit, the booklet ensures readers aren’t left puzzling over sudden leaps in reasoning.
 
 

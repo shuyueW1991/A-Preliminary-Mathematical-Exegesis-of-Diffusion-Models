@@ -16,7 +16,7 @@ Chapter  2 - The ELBO Paradigm --- Proxy Objective for True Data Maximization
 </div>
 
 In previous chapter, we have talked about finding the best modeled distribution via evaluating the likelihood \\(p(x)\\)  of observed or generated data, because that measures how well they explain the observation:  higher likelihood suggests a better model.
-Question now is to maximize the \\(p(x)\\), i.e.  optimize \\(p(x)\\) to achieve maximal likelihood?
+Question now is: how to maximize the \\(p(x)\\), i.e. optimize \\(p(x)\\) to achieve maximal likelihood?
 
 In this chapter, to get this game going, we will introduce two _deus ex machina_ magics.
 The first one in this chapter is the latent variables, denoted as \\(z\\).
@@ -25,7 +25,7 @@ Real-world datasets often exhibit complex dependencies of underlying, unobserved
 For instance, image data contains implicit attributes like illumination geometry and object orientation that are not explicitly encoded in pixel values but significantly influence the observed patterns. 
 By explicitly representing these hidden factors, latent variables enable models to capture richer data structure.
 Without latent variables, we would face the formidable challenge of modeling complex high-dimensional distributions directly - such as capturing intricate pixel-level correlations in images - which is both computationally intractable and statistically inefficient. 
-Latent variables decomposes the problem into more manageable components: a simple latent space distribution \\(p(z)\\) and a conditional data distribution \\(p(x|z)\\), where \\(z\\) represents the latent factors and \\(x\\) the observed data. 
+Latent variables decompose the problem into more manageable components: a simple latent space distribution \\(p(z)\\) and a conditional data distribution \\(p(x|z)\\), where \\(z\\) represents the latent factors and \\(x\\) the observed data. 
 This framework offers a structured, interpretable, and scalable approach—transforming an intractable problem into one where hidden factors systematically explain observed phenomena.
 
 In fact, the metaphor of Plato’s Cave—from _The Republic_—provides a powerful analogy for understanding latent variables in generative models.
@@ -36,10 +36,10 @@ The true forms are the latent variables—the unobserved, higher-dimensional f
 In both cases, reality is richer than what we directly perceive. 
 Latent variables act as the hidden causes behind the observable effects, allowing models to infer the underlying structure that shapes the data.
 
-We now try maximizing \\(p(x)\\) by utilizing  latents \\(z\\).
+We now try maximizing \\(p(x)\\) by utilizing latents \\(z\\).
 We're here to find the distribution in which the observed data \\(x_1, x_2, ..., x_n\\) would be highest in probability compared with other distributions.
 In modeling terms, this translates to finding a configuration of model parameters  such that the observed data have the highest  probability compared with other configuration.
-Keep in mind that it has never been a problem of probability value arithmetics, as is suggested by its denotation format; it is a distribution (i.e. the best \\(p\\), in whichever form it takes, that we are actually looking for).
+Keep in mind that it has never been a problem of probability value arithmetic, as is suggested by its denotation format; it is a distribution (i.e. the best \\(p\\), in whichever form it takes, that we are actually looking for).
 
 One way of linking latents \\(z\\) to \\(p(x)\\) is to think about: 
 
@@ -57,13 +57,21 @@ With this, one might propose the procedures of estimate \\(p(x\\)):
 4. Therefore, by adjusting the model param \\(\theta\\), the integral gets bigger or smaller correspondingly, until the \\(\theta\\) corresponds to one high value of \\(p(x)\\) is found.
 
 
-
 However, the intractability of the integration a major challenge itself.
 \\(z\\) is typically a high-dimensional vector. 
 The integral is over all possible values of \\(z\\), which is computationally infeasible for even moderate size. 
 Example: if \\(z\\) has 100 dimensions and we discretize each dimension into just 10 values, the number of terms in the sum grows as much as \\(10^{100}\\).
 The decoder \\(p_\theta(x|z)\\) , like other mathematical things in machine learning that is beyond explicit expression,  is usually modeled by a neural network. 
 To such a complex nonlinear function,  there’s no analytical formula for integrating it over \\(z\\), even if \\(p(z)\\) is as simple as Gaussian.
+Suppose we repeat  $N$ times to yield the approximation:
+
+$$p_{\boldsymbol{\theta}}(x) = \int p_{\theta}(x|z)p(z)dz \approx \frac{1}{N}\sum_{i=1}^N p_{\theta}(x|z^{(i)})$$
+
+This approximation converges to the true expectation as $N \to \infty$ by the law of large numbers. 
+We optimize parameters $\theta$ to maximize $p_{\theta}(x)$, thereby improving the model's fit to the observed data while maintaining the learned low-dimensional structure.
+However, it takes very large number to await the valid $N$ to come.
+
+
 
 In addition, most \\(z\\) samples obtained in this approach will contribute negligibly to \\(p_\theta(x)\\), since \\(p(z)\\) is uninformed about \\(x\\), so most \\(z\\) values will lead to \\(p_\theta(x∣z)≈0\\), just consider how much `natural`images occupies the whole space.
 Blindly sampling  \\(z \sim p(z)\\) provides little guidance to the decoder about which regions of \\(z\\)-space are relevant for generating meaningful \\(x\\).

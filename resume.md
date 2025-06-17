@@ -12,3 +12,5 @@ Working on Artificial Intelligence.
 
 Currently living at Shanghai.
 
+Please send messages to him via: henri_w_91@hotmail.com
+
