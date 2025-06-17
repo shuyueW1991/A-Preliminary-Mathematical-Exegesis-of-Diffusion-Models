@@ -5,21 +5,19 @@ nav_order: 1
 
 ---
 
-<div style="text-align: center; font-size: 1.8em;">
+<div style="text-align: left; font-size: 1.8em;">
 A preliminary mathematical exegesis of diffusion models
+<br> --  Gaining Clarity From True Understanding
 </div>
+
+
 
 <br>
 
-<div style="text-align: center; font-size: 1.2em;">
---- A work of PrgM2 (/pRˈɡem/2), aka shuyueW1991
+<div style="text-align: center; font-size: 1.4em;">
+A PrgM2 (/pRˈɡem/2)'s work
 </div>
 
-<br><br>
-
-<div style="text-align: center; font-size: 1.2em;">
-Для Дмитрия.
-</div>
 
 <br>
 
@@ -31,7 +29,7 @@ A preliminary mathematical exegesis of diffusion models
 
 <br>
 
-<div style="text-align: left; font-size: 1.2em;">
-[init]2025/06/16.
+<div style="text-align: left; font-size: 1.0em;">
+[init]2025/06/16. Created vibe with jeykll and just-the-doc. Uploaded chapters 0, 1, and 2, as well as other stuff.
 </div>
 

@@ -15,7 +15,22 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
         }
     });
-    
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // Disable right-click
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    });
+
+    // Disable text selection
+    document.body.style.userSelect = 'none';
+
+    // Optional: Disable copying via Ctrl+C
+    document.addEventListener('copy', function (e) {
+        e.preventDefault();
+        alert("Copying is disabled.");
+    });
+    });
     // Add elegant page turn effect
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', function(e) {
@@ -36,3 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.opacity = '1';
     }, 100);
 });
+
+
+
+

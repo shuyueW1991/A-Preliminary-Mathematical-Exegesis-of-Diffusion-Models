@@ -1,12 +1,14 @@
 ---
 layout: home
 title: "About Author"
-nav_order: 5
+nav_order: 9
 
 ---
 
 
 Shuyue Wang, the author.
 
-Working on AI algorithm, its develoopment and implementation.
+Working on Artificial Intelligence.
+
+Currently living at Shanghai.
 

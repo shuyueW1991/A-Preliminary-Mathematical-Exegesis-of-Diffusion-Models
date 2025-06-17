@@ -27,7 +27,7 @@ Diffusion models, therefore, aim not just for photorealism but for the broader f
 This subtle distinction underscores their flexibility in generating both lifelike and creatively altered outputs while remaining anchored in naturalistic principles.
 
 
-In each of the above visual case, the visual input can be represented as a tensor—for instance, a \\(256 \times 256\\) image admits ${2^8}^3 = 16,777,216$ possible colors per pixel (where 3 represents 3 RGB channels and 8 refers to the bit depth of the channel), and the total configuration space for pixel combinations therefore contains $(16,777,216)^{256 \times 256}$ distinct images—a vast number that exceeds the estimated $10^{80}$ atoms in the observable universe.
+In each of the above visual case, the visual input can be represented as a tensor—for instance, a \\(256 \times 256\\) image admits \\({2^8}^3 = 16,777,216\\) possible colors per pixel (where 3 represents 3 RGB channels and 8 refers to the bit depth of the channel), and the total configuration space for pixel combinations therefore contains \\((16,777,216)^{256 \times 256}\\) distinct images—a vast number that exceeds the estimated \\(10^{80}\\) atoms in the observable universe.
 
 
 If we randomly assign values to each pixel, the result will be more likely to appear chaotic than to be 'natural', almost certainly degrading into meaningless noise.
@@ -42,7 +42,7 @@ The sparsity of meaningful images might suggest Gaussian distributions as potent
 However, Gaussian approximations fail dramatically for natural images.  
 When fitted to image data through mean and covariance, sampling yields only blurry, unrealistic outputs if using Gaussian approximations.
 You can also try it by yourself.
-The mean can be  an indistinct average (like an "average face"), while the covariance captures merely pairwise pixel relationships.
+The mean can be an indistinct average (like an "average face"), while the covariance captures merely pairwise pixel relationships.
 This failure illustrates a deeper truth: semantics has finer structure than simple enumerations.
 These fundamental inadequacies necessitate more sophisticated approaches—such as diffusion models—capable of capturing the intricate structures inherent in natural images.
 
@@ -50,47 +50,86 @@ These fundamental inadequacies necessitate more sophisticated approaches—such 
 Since arbitrary pixel arrangements rarely yield realistic outputs, we turn to probability theory for a solution, because real natural images follow certain patterns (e.g., smooth textures, recognizable objects), we can model distribution that registers those patterns statistically rather than relying on randomness.
 Here, each natural image can be viewed as a sampled event from an underlying probability distribution over all possible pixel configurations.
 In probability theory, an event represents a possible outcome of an experiment or observation.  
-It is denoted by $x$, which may be either a scalar in one dimension or a tensor in multiple dimensions.  
-When considering images, $x$ typically represents either meaningful natural images or random arrangements of pixels.  
-The probability $p(x)$ then quantifies the likelihood of event $x$ occurring.  
+It is denoted by \\(x\\), which may be either a scalar in one dimension or a tensor in multiple dimensions.  
+When considering images, \\(x\\) typically represents either meaningful natural images or random arrangements of pixels.  
+The probability \\(p(x)\\) then quantifies the likelihood of event \\(x\\) occurring.  
 It calculates the likelihood of observing a specific natural image among all possible pixel configurations.
 In this framework, every natural image thus represents a sample drawn from an underlying probability distribution governing all possible pixel configurations.
-A good $p(x)$ should approach zero for random noise while assigning higher probability density to natural images.
-With this foundation, our focus will now shift entirely to modeling the true data distribution $p_{data}(x)$, the underlying probability structure governing natural images.
+A good \\(p(x)\\) should approach zero for random noise while assigning higher probability density to natural images.
+With this foundation, our focus will now shift entirely to modeling the true data distribution \\(p_{data}(x)\\), the underlying probability structure governing natural images.
 For practitioners seeking to leverage generative AI—whether to develop custom models or satisfy theoretical curiosity—understanding this distribution's properties proves essential.
 
 
-Now let's take a look at the high-dimensional tensor of  noise with $d$ pixels, each being independent with identically distributed (i.e. i.i.d.) components.: 
+Now let's take a look at the high-dimensional tensor of  noise with \\(d\\) pixels, each being independent with identically distributed (i.e. i.i.d.) components.: 
 
 $$
 X=(X_1,X_2,…,X_d)
 $$
 
-We suppose $X_i$ has finite variance $\sigma^2$. 
-Since: $$∥X∥_2^2=\sum_{i=1}^dX_i^2$$we have $$\mathbb{E}[\|X\|_2^2]=d\cdot\mathbb{E}[X_i^2]$$and  $$Var(\|X\|_2^2)=d⋅Var(X_i^2).$$
-We calculate the ratio between the standard deviation and the mean, and we  refer to this ratio as concentration ratio: $$\frac{\sqrt{Var(∥X∥_2^2)}}{E[∥X∥_2^2]}=\frac{\sqrt{d⋅Var(X_i^2)}}{d⋅E[X_i^2]} \propto  \frac{1}{\sqrt{d}}→0\quad\text{as }d \rightarrow \infty.$$
+We suppose \\(X_i\\) has finite variance \\(\sigma^2\\). 
+Since: 
+
+$$∥X∥_2^2=\sum_{i=1}^dX_i^2$$
+
+we have 
+
+$$\mathbb{E}[\|X\|_2^2]=d\cdot\mathbb{E}[X_i^2]$$
+
+and  
+
+$$Var(\|X\|_2^2)=d⋅Var(X_i^2).$$
+
+We calculate the ratio between the standard deviation and the mean, and we  refer to this ratio as concentration ratio: 
+
+$$\frac{\sqrt{Var(∥X∥_2^2)}}{E[∥X∥_2^2]}=\frac{\sqrt{d⋅Var(X_i^2)}}{d⋅E[X_i^2]} \propto  \frac{1}{\sqrt{d}}→0\quad\text{as }d \rightarrow \infty.$$
+
+
 This vanishing result implies the concentration around the mean, which you can imagine a thin shell of noises shows itself gathering the sample when the dimension increases.
 We now illustrate this concentrated norm phenomenon for high-dimensional noise in uniform and gaussian distributions, respectively ---
 
 
-For $X_i \sim \text{Uniform}(-a,a)$，its probability density function is $$f_{X_i}(x) = \frac{1}{2a}.$$The variance is: $$\begin{align*}
+For \\(X_i \sim \text{Uniform}(-a,a)\\)，its probability density function is 
+
+$$f_{X_i}(x) = \frac{1}{2a}.$$
+
+The variance is: 
+
+$$\begin{align*}
 \text{Var}(X_i^2) &= \mathbb{E}[X_i^4] - (\mathbb{E}[X_i^2])^2 \\
                   &= \left( \int_{-a}^a x^4 \cdot \frac{1}{2a} \, dx \right) - \left( \int_{-a}^a x^2 \cdot \frac{1}{2a} \, dx \right)^2 \\
                   &= \left( \frac{1}{2a} \left[ \frac{x^5}{5} \right]_{-a}^a \right) - \left( \frac{1}{2a} \left[ \frac{x^3}{3} \right]_{-a}^a \right)^2 \\
                   &= \frac{a^4}{5} - \left( \frac{a^2}{3} \right)^2 \\
                   &= \frac{4a^4}{45}
 \end{align*}$$
-For $X = (X_1, \dots, X_d)$, we have: $$\mathbb{E}[\|X\|_2^2] = d \cdot \mathbb{E}[X_i^2] = d \cdot \frac{a^2}{3},$$
-so $$\|X\|_2 \approx \sqrt{\mathbb{E}[\|X\|_2^2]} = a \sqrt{\frac{d}{3}}.$$
+
+
+For \\(X = (X_1, \dots, X_d)\\), we have: 
+
+$$\mathbb{E}[\|X\|_2^2] = d \cdot \mathbb{E}[X_i^2] = d \cdot \frac{a^2}{3},$$
+
+so 
+
+$$\|X\|_2 \approx \sqrt{\mathbb{E}[\|X\|_2^2]} = a \sqrt{\frac{d}{3}}.$$
+
 Also, we have:
+
 $$\text{Var}(\|X\|_2^2) = d \cdot \text{Var}(X_i^2) = d \cdot \frac{4a^4}{45},$$
+
 so
+
 $$\sigma_{\|X\|_2^2} = \frac{2a^2 \sqrt{d}}{\sqrt{45}} = \frac{2a^2 \sqrt{d}}{3 \sqrt{5}}.$$
-Then we now have the concentration ratio vanishing in the uniform distribution:  $$\frac{\sigma_{\|X\|_2^2}}{\mathbb{E}[\|X\|_2^2]} = \frac{2a^2 \sqrt{d} / (3 \sqrt{5})}{d a^2 / 3} = \frac{2}{\sqrt{5d}}\to 0\text{ as }d \to \infty.$$
+
+Then we now have the concentration ratio vanishing in the uniform distribution:  
+
+$$\frac{\sigma_{\|X\|_2^2}}{\mathbb{E}[\|X\|_2^2]} = \frac{2a^2 \sqrt{d} / (3 \sqrt{5})}{d a^2 / 3} = \frac{2}{\sqrt{5d}}\to 0\text{ as }d \to \infty.$$
 
 
-For $X_i \sim \mathcal{N}(0, \sigma^2)$, its probability density function is: $$f_{X_i}(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{x^2}{2\sigma^2}}.$$
-The variance of $X_i^2$: 
+For \\(X_i \sim \mathcal{N}(0, \sigma^2)\\), its probability density function is: 
+
+$$f_{X_i}(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{x^2}{2\sigma^2}}.$$
+
+The variance of \\(X_i^2\\): 
+
 $$\begin{align*}
 \text{Var}(X_i^2) &= \mathbb{E}[X_i^4] - \left(\mathbb{E}[X_i^2]\right)^2 \\
                  &= \left( \int_{-\infty}^{\infty} x^4 f_{X_i}(x) \, dx \right) - \left( \int_{-\infty}^{\infty} x^2 f_{X_i}(x) \, dx \right)^2 \\
@@ -101,63 +140,106 @@ $$\begin{align*}
                  &= 3\sigma^4 - (\sigma^2)^2 \\
                  &= 2\sigma^4
 \end{align*}$$
-For $X = (X_1, \dots, X_d)$, we have: $$\mathbb{E}[\|X\|_2^2] = d \cdot \mathbb{E}[X_i^2] = d \sigma^2,$$
-so $$\|X\|_2 \approx \sqrt{\mathbb{E}[\|X\|_2^2]} = \sigma \sqrt{d}.$$
-And we have $$\text{Var}(\|X\|_2^2) = d \cdot \text{Var}(X_i^2) = 2d \sigma^4,$$
+
+For \\(X = (X_1, \dots, X_d)\\), we have: 
+
+$$\mathbb{E}[\|X\|_2^2] = d \cdot \mathbb{E}[X_i^2] = d \sigma^2,$$
+
+so 
+
+$$\|X\|_2 \approx \sqrt{\mathbb{E}[\|X\|_2^2]} = \sigma \sqrt{d}.$$
+
+And we have 
+
+$$\text{Var}(\|X\|_2^2) = d \cdot \text{Var}(X_i^2) = 2d \sigma^4,$$
+
 so
-$$
-\sigma_{\|X\|_2^2} = \sigma^2 \sqrt{2d}.
-$$
-Then the concentration ratio  in the gaussian distribution becomes:$$\frac{\sigma_{\|X\|_2^2}}{\mathbb{E}[\|X\|_2^2]} = \frac{\sigma^2 \sqrt{2d}}{d \sigma^2} = \sqrt{\frac{2}{d}} \to 0 \text{ as } d \to \infty.$$
+
+$$ \sigma_{\|X\|_2^2} = \sigma^2 \sqrt{2d}.$$
+
+Then the concentration ratio  in the gaussian distribution becomes:
+
+$$\frac{\sigma_{\|X\|_2^2}}{\mathbb{E}[\|X\|_2^2]} = \frac{\sigma^2 \sqrt{2d}}{d \sigma^2} = \sqrt{\frac{2}{d}} \to 0 \text{ as } d \to \infty.$$
 
 
 Now let's check upon the relationship between the noises inside the shell.
-Consider two random noises $\mathbf{u}, \mathbf{v} \in \mathbb{R}^d$ , with i.i.d. entries , each has finite variances and bounded fourth moments:  $$\text{Var}(u_i) = \sigma_u^2, \text{Var}(v_i) = \sigma_v^2 < \infty,\text{and } \mathbb{E}[u_i^4], \mathbb{E}[v_i^4] < \infty$$
-The dot product is  $$\langle \mathbf{u}, \mathbf{v} \rangle \triangleq \sum_{i=1}^d u_i v_i$$ has expectation :
+Consider two random noises \\(\mathbf{u}, \mathbf{v} \in \mathbb{R}^d\\) , with i.i.d. entries , each has finite variances and bounded fourth moments: 
+
+$$\text{Var}(u_i) = \sigma_u^2, \text{Var}(v_i) = \sigma_v^2 < \infty,\text{and } \mathbb{E}[u_i^4], \mathbb{E}[v_i^4] < \infty$$
+
+The dot product is 
+
+$$\langle \mathbf{u}, \mathbf{v} \rangle \triangleq \sum_{i=1}^d u_i v_i$$
+
+has expectation:
+
 $$\mathbb{E}[\langle \mathbf{u}, \mathbf{v} \rangle] = \sum^d_{i=1}\mathbb{E}[u_iv_i] = \sum^d_{i=1}\mathbb{E}[u_i]\mathbb{E}[v_i] = d \mu_u \mu_v.$$
+
 The split of expectation comes from i.i.d. features.
 Its variance is:
+
  $$\text{Var}(u_i v_i) = \mathbb{E}[u_i^2 v_i^2] - (\mathbb{E}[u_i v_i])^2 = (\sigma_u^2 + \mu_u^2)(\sigma_v^2 + \mu_v^2) - \mu_u^2 \mu_v^2=\sigma^2​_u\sigma_v^2​+\sigma^2​_v\mu_u^2​+\sigma^2​_u\mu_v^2​.$$
 
 
 Here comes the first _deux ex machina_ of the booklet:
->The Chebyshev inequality provides a bound on the probability that a random variable $X$ deviates from its mean $\mu$ by more than $k$ standard deviations $\sigma$, stating that $\Pr(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}$ for any $k > 0$. 
+>The Chebyshev inequality provides a bound on the probability that a random variable \\(X\\) deviates from its mean \\(\mu\\) by more than \\(k\\) standard deviations \\(\sigma\\), stating that \\(\Pr(\|X - \mu\| \geq k\sigma) \leq \frac{1}{k^2}\\) for any \\(k > 0\\). 
 
 
 This universal bound applies to any distribution with finite variance, offering a measure of dispersion guarantees.
-Back to our case, for $\epsilon > 0$:
+Back to our case, for \\(\epsilon > 0\\):
+
 $$
 \mathbb{P}\left( \left| \frac{\langle \mathbf{u}, \mathbf{v} \rangle}{d} - \mu_u \mu_v \right| \geq \epsilon \right) \leq \frac{\text{Var}(\langle \mathbf{u}, \mathbf{v} \rangle)}{d^2 \epsilon^2} = \frac{d\cdot (\sigma^2​_u\sigma_v^2​+\sigma^2​_v\mu_u^2​+\sigma^2​_u\mu_v^2)}{d^2 \epsilon^2} \to 0 \text{ as } d \to \infty.
 $$
-Thus, equivalently: $$\frac{\langle \mathbf{u}, \mathbf{v} \rangle}{d} \to \mu_u \mu_v.$$
+
+Thus, equivalently: 
+
+$$\frac{\langle \mathbf{u}, \mathbf{v} \rangle}{d} \to \mu_u \mu_v.$$
 
 
-The squared norm of $\mathbf{u}$ is:$$\|\mathbf{u}\|^2 = \sum_{i=1}^d u_i^2.$$
-So, compute the expected value: $$\mathbb{E}\left[\frac{\|\mathbf{u}\|^2}{d}\right] = \frac{1}{d} \sum_{i=1}^d \mathbb{E}[u_i^2]. $$Since $$\mathbb{E}[u_i^2] = \text{Var}(u_i) + (\mathbb{E}[u_i])^2 = \sigma_u^2 + \mu_u^2,$$we have:$$ \mathbb{E}\left[\frac{\|\mathbf{u}\|^2}{d}\right] =\frac{d\cdot(\sigma_u^2 + \mu_u^2)}{d}= \sigma_u^2 + \mu_u^2.$$
+The squared norm of \\(\mathbf{u}\\) is:
+
+$$\|\mathbf{u}\|^2 = \sum_{i=1}^d u_i^2.$$
+
+So, compute the expected value: 
+
+$$\mathbb{E}\left[\frac{\|\mathbf{u}\|^2}{d}\right] = \frac{1}{d} \sum_{i=1}^d \mathbb{E}[u_i^2]. $$
+
+Since 
+
+$$\mathbb{E}[u_i^2] = \text{Var}(u_i) + (\mathbb{E}[u_i])^2 = \sigma_u^2 + \mu_u^2,$$
+
+we have:
+
+$$ \mathbb{E}\left[\frac{\|\mathbf{u}\|^2}{d}\right] =\frac{d\cdot(\sigma_u^2 + \mu_u^2)}{d}= \sigma_u^2 + \mu_u^2.$$
+
 Then, similar to the use of the Chebyshev inequality, the squared norms concentrate as:
-$$
-\frac{\|\mathbf{u}\|^2}{d} \to \sigma_u^2 + \mu_u^2, \quad \frac{\|\mathbf{v}\|^2}{d} \to \sigma_v^2 + \mu_v^2.
-$$
+
+$$\frac{\|\mathbf{u}\|^2}{d} \to \sigma_u^2 + \mu_u^2, \quad \frac{\|\mathbf{v}\|^2}{d} \to \sigma_v^2 + \mu_v^2.$$
 
 
 The normalized dot product thus satisfies:
+
 $$
 \frac{\langle \mathbf{u}, \mathbf{v} \rangle}{\|\mathbf{u}\| \|\mathbf{v}\|} = \frac{\langle \mathbf{u}, \mathbf{v} \rangle / d}{\sqrt{(\|\mathbf{u}\|^2 / d)(\|\mathbf{v}\|^2 / d)}} \to \frac{\mu_u \mu_v}{\sqrt{(\sigma_u^2 + \mu_u^2)(\sigma_v^2 + \mu_v^2)}}.
 $$
-From the definniton of inner vectorial product,  if $\mu_u \mu_v = 0$ (i.e. at least one mean is zero), there is orthogonality between noises within the shell.
+
+From the definniton of inner vectorial product,  if \\(\mu_u \mu_v = 0\\) (i.e. at least one mean is zero), there is orthogonality between noises within the shell.
 That is to say, for zero-mean random vectors in high dimensions, if the distribution to sample is zero-meaned, the sampled vectors are likely to be orthogonal to each other.
 Under this circumstance,  the directions of noise vectors remain uniformly distributed over the sphere, which is quite unusual in low-dimensional space.
 
 
 For a more intuitive grasp of high-dimensional noise , let's check how a perturbation added to a high-dimensional tensor would be like.
-Consider a random noise vector $\boldsymbol{\epsilon} \in \mathbb{R}^d$, where each component $\epsilon_i$ is sampled i.i.d. from a distribution with mean $0$ and variance $\sigma^2$. 
-By Chebyshev’s inequality, the normalized squared norm $\|\boldsymbol{\epsilon}\|_2^2/d$ concentrates around $\sigma^2$:
+Consider a random noise vector \\(\boldsymbol{\epsilon} \in \mathbb{R}^d\\), where each component \\(\epsilon_i\\) is sampled i.i.d. from a distribution with mean \\(0\\) and variance \\(\sigma^2\\). 
+By Chebyshev’s inequality, the normalized squared norm \\(\|\boldsymbol{\epsilon}\|_2^2/d\\) concentrates around \\(\sigma^2\\):
+
 $$
 \Pr\left(\left|\frac{\|\boldsymbol{\epsilon}\|_2^2}{d} - \sigma^2\right| \geq \delta\right) \leq \frac{\text{Var}(\epsilon_i^2)}{d\delta^2},
 $$
-implying $\|\boldsymbol{\epsilon}\|_2 \approx \sigma\sqrt{d}$ for large $d$. 
-It means that even small noise ($\sigma$) becomes significant in high dimensions, causing large prediction changes.
-For example, a linear model $f(\mathbf{x}) = \mathbf{w}^T \mathbf{x}$, the perturbation’s impact scales as $|\mathbf{w}^T \boldsymbol{\epsilon}| \leq \|\mathbf{w}\|_2 \sigma \sqrt{d}$. 
+
+implying \\(\|\boldsymbol{\epsilon}\|_2 \approx \sigma\sqrt{d}\\) for large \\(d\\). 
+It means that even small noise (\\(\sigma\\)) becomes significant in high dimensions, causing large prediction changes.
+For example, a linear model \\(f(\mathbf{x}) = \mathbf{w}^T \mathbf{x}\\), the perturbation’s impact scales as \\(|\mathbf{w}^T \boldsymbol{\epsilon}| \leq \|\mathbf{w}\|_2 \sigma \sqrt{d}\\). 
 In the context of images, small perturbations to pixel values can induce large changes in model predictions. 
 For a given portrait, it takes not much of effort to make it not portrait-like any more by perturbing the pixels.
 
@@ -170,11 +252,14 @@ We will analyze these  in detail in later chapters.
 
 Our analysis of high-dimensional data naturally leads to the question: what distinguishes  natural images within this space that is mostly occupied by noise? 
 We take a look at their norms, first.
-Consider a $32 \times 32$ grayscale image, representing a vector in $\mathbb{R}^{1024}$ space ($d = 32 \times 32  = 1024$). 
-Let $\mathbf{x} \in \mathbb{R}^d$ denote the image and $\boldsymbol{\epsilon} \in \mathbb{R}^d$ represent standard normal noise ($\epsilon_i \sim \mathcal{N}(0, 1)$). 
-The expected squared $L_2$ norm of the noise is: $$\mathbb{E}[\|\boldsymbol{\epsilon}\|_2^2] = \sum^d_{i}\mathbb{E}[\|\epsilon_i\|_2^2] = d \cdot \sigma^2 =  1024 \cdot 1 = 1024$$
-which yields a typical noise magnitude of $|\boldsymbol{\epsilon}|_2 \approx \sqrt{1024} = 32$. 
-In contrast, studies have found that the average squared $L2$​ norm of CIFAR-10 images (after normalization) is roughly 200, yielding a typical norm of $\sqrt{200}\sim14.14$, significantly smaller than that of a random noise.
+Consider a \\(32 \times 32\\) grayscale image, representing a vector in \\(\mathbb{R}^{1024}\\) space (\\(d = 32 \times 32  = 1024\\)). 
+Let \\(\mathbf{x} \in \mathbb{R}^d\\) denote the image and \\(\boldsymbol{\epsilon} \in \mathbb{R}^d\\) represent standard normal noise (\\(\epsilon_i \sim \mathcal{N}(0, 1)\\)). 
+The expected squared \\(L_2\\) norm of the noise is: 
+
+$$\mathbb{E}[\|\boldsymbol{\epsilon}\|_2^2] = \sum^d_{i}\mathbb{E}[\|\epsilon_i\|_2^2] = d \cdot \sigma^2 =  1024 \cdot 1 = 1024$$
+
+which yields a typical noise magnitude of \\(|\boldsymbol{\epsilon}|_2 \approx \sqrt{1024} = 32\\). 
+In contrast, studies have found that the average squared \\(L2\\)​ norm of CIFAR-10 images (after normalization) is roughly 200, yielding a typical norm of \\(\sqrt{200}\sim14.14\\), significantly smaller than that of a random noise.
 We find that natural images exhibit smaller norms compared to random noise with independent and identically distributed (i.i.d.) entries.
 
 
@@ -190,25 +275,53 @@ Correlations indicated by smooth edges, textures, and objects imply that the dat
 
 
 Another perspective to understand this is through entropy.
-Entropy measures the average uncertainty (or information content) of event $X$, where higher entropy means more randomness that makes compression harder, and lower entropy means more predictability that makes allowing better compression.
+Entropy measures the average uncertainty (or information content) of event \\(X\\), where higher entropy means more randomness that makes compression harder, and lower entropy means more predictability that makes allowing better compression.
 Regarding  flipping a coin, a fair coin (50% heads, 50% tails) should have maximum entropy because you’re completely uncertain about the outcome, while a biased coin (e.g., 99% heads) should have lower entropy, because you’re more confident it’ll land heads.
 A higher entropy should bring more surprise.
 
 
-In this spirit,  Shannon's entropy is thus defined: for a discrete random variable $X$ with possible outcomes $x_i$ and probabilities $p_i$​: $$H(X)=− \sum_{i} ​p_i(X)​ \log p_i(X)$$
-For an image $X$ with pixel  $x_i\in{0,1,…,255}$ as channel value, the entropy per pixel is: $$H_{noise}=-\sum_{i=0}^{255}p(x_i)\log_2p(x_i)$$
-We consider random noise as uniformly distributed, then its entropy is $$-\sum_{i=0}^{255}\frac{1}{256}\log_2\frac{1}{256}=\log⁡_2 256=8 \text{bits/pixel}.$$
+In this spirit,  Shannon's entropy is thus defined: for a discrete random variable \\(X\\) with possible outcomes \\(x_i\\) and probabilities \\(p_i\\)​:
+
+$$H(X)=− \sum_{i} ​p_i(X)​ \log p_i(X)$$
+
+For an image \\(X\\) with pixel  \\(x_i\in{0,1,…,255}\\) as channel value, the entropy per pixel is: 
+
+$$H_{noise}=-\sum_{i=0}^{255}p(x_i)\log_2p(x_i)$$
+
+We consider random noise as uniformly distributed, then its entropy is 
+
+$$-\sum_{i=0}^{255}\frac{1}{256}\log_2\frac{1}{256}=\log⁡_2 256=8 \text{bits/pixel}.$$
 
 
-Knowing this, we now look at the joint entropy $H(X,Y)$ that measures the total uncertainty of the pair $(X,Y)$:
+Knowing this, we now look at the joint entropy \\(H(X,Y)\\) that measures the total uncertainty of the pair \\((X,Y)\\):
+
 $$H(X,Y) = -\sum_{x \in \mathcal{X}} \sum_{y \in \mathcal{Y}} P(x,y) \log_2 P(x,y),$$
-where $P(x,y)$ is the joint probability of $X = x$ and $Y = y$.
-When $X$ and $Y$ are independent, the joint probability factorizes: $$P(x,y) = P(x)P(y).$$
-Substituting into the joint entropy formula: $$H(X,Y) = -\sum_{x} \sum_{y} P(x)P(y) \log_2 \left[ P(x)P(y) \right]= -\sum_{x} \sum_{y} P(x)P(y) \left[ \log_2 P(x) + \log_2 P(y) \right].$$
-Splitting the sum into:$$-\sum_{x} P(x) \log_2 P(x) \sum_{y} P(y) = H(X)$$and
+
+where \\(P(x,y)\\) is the joint probability of \\(X = x\\) and \\(Y = y\\).
+
+When \\(X\\) and \\(Y\\) are independent, the joint probability factorizes: 
+
+$$P(x,y) = P(x)P(y).$$
+
+Substituting into the joint entropy formula: 
+
+$$H(X,Y) = -\sum_{x} \sum_{y} P(x)P(y) \log_2 \left[ P(x)P(y) \right]= -\sum_{x} \sum_{y} P(x)P(y) \left[ \log_2 P(x) + \log_2 P(y) \right].$$
+
+Splitting the sum into:
+
+$$-\sum_{x} P(x) \log_2 P(x) \sum_{y} P(y) = H(X)$$
+
+and
+
 $$-\sum_{y} P(y) \log_2 P(y) \sum_{x} P(x) = H(Y).$$
-Thus: $$H(X,Y) = H(X) + H(Y).$$
-So, for an $n\times n$ image with $n^2$ pixels, if pixel values are independent, then the total entropy is additive:$$H_{total}=n^2\times H=n^2\times 8 \text{bits}.$$
+
+Thus: 
+
+$$H(X,Y) = H(X) + H(Y).$$
+
+So, for an \\(n\times n\\) image with \\(n^2\\) pixels, if pixel values are independent, then the total entropy is additive:
+
+$$H_{total}=n^2\times H=n^2\times 8 \text{bits}.$$
 
 Natural images have much lower entropy than random noise images, meaning they occupy an exponentially smaller fraction of the space of all possible pixel combinations.
 This is also concluded from empirical studies.
@@ -222,53 +335,57 @@ Natural images do not fill their high-dimensional pixel space uniformly; instead
 On one hand, natural images are highly structured, more complex than a random noise.
 And they have smaller norms compared with a random noise.
 On the other hand, we have known that natural images are vanishingly rare in the space of all possible pixel combinations.
-Randomly sampling from all possible $256\times256$ RGB images gives you almost 0 probability of getting a natural image.  
+Randomly sampling from all possible \\(256\times256\\) RGB images gives you almost 0 probability of getting a natural image.  
 But if you sample from real-world camera outputs, the 0 probability goes to the meaningless noise,
-It does no harm to imagine that maybe, natural images dominate the probability mass of the true data distribution  $p_{data}(x)$  i.e. it is highly peaked around natural images.
+It does no harm to imagine that maybe, natural images dominate the probability mass of the true data distribution  \\(p_{data}(x)\\)  i.e. it is highly peaked around natural images.
 
 
 Thus, while natural images may be rare in the global view of high-dimensional space, they dominate within certain localized regions. 
-This structure is formally referred to as a manifold ($\mathcal{M}$) in the machine learning community—a low-dimensional geometric object embedded within a high-dimensional space.
+This structure is formally referred to as a manifold (\\(\mathcal{M}\\)) in the machine learning community—a low-dimensional geometric object embedded within a high-dimensional space.
 A useful analogy is a two-dimensional sheet of paper floating in three-dimensional space. 
 Globally, the paper occupies no volume—it is infinitely thin—yet every point on its surface lies precisely within its own two-dimensional plane. 
 Similarly, natural images, though sparse in the full pixel space, concentrate on much lower-dimensional manifolds where their intrinsic structure resides.
 
 
-Mathematically speaking, in the space of all possible images, the set of natural images has extremely small volume but very high density $p_{data}(x)$ for $x\in M$.
-The rest of the space (noise, random pixels) has enormous volume but near-zero density $p_{data}(x)\approx 0$.
-Sampling from $p_{data}$​ thus almost always gives natural images.
+Mathematically speaking, in the space of all possible images, the set of natural images has extremely small volume but very high density \\(p_{data}(x)\\) for \\(x\in M\\).
+The rest of the space (noise, random pixels) has enormous volume but near-zero density \\(p_{data}(x)\approx 0\\).
+Sampling from \\(p_{data}\\)​ thus almost always gives natural images.
 When generating new images, there might be chances of  wandering into low-probability regions.
-However, if your model $p(x)$ is good enough, sampling from it correctly will almost always give natural images, because  in a well-trained p(x), almost all the probability mass is concentrated around the natural image manifold.
+However, if your model \\(p(x)\\) is good enough, sampling from it correctly will almost always give natural images, because  in a well-trained p(x), almost all the probability mass is concentrated around the natural image manifold.
 
 
 Note that Probability mass ≠ size of set: This is the key insight! 
 The size of a set (e.g., natural images vs. noise) is not the same as its probability mass. 
-Probability mass depends on the distribution $p(x)$.
+Probability mass depends on the distribution \\(p(x)\\).
 If you randomly sample pixels (uniformly), you'll almost always get noisy garbage.
 but if you cast a regard to real world, you rarely see  random noise.
-Therefore, a well-learned generative model should resemble this  true data distribution where the **high-density regions** should correspond to natural images, and the **low-density regions** should correspond to noise or unrealistic images.
-They shrink the sampling space to near $\mathcal{M}$, making natural images likely outputs.
+Therefore, a well-learned generative model should resemble this  true data distribution where the high-density regions should correspond to natural images, and the low-density regions should correspond to noise or unrealistic images.
+They shrink the sampling space to near \\(\mathcal{M}\\), making natural images likely outputs.
 
 
 
-If we would like to realize such a modeled distribution, we can use a suitable model family chosen as $p_\theta(x)$, with unknown parameters $\theta$, so that the problem boils down to maximizing the average (log-)likelihood (w.r.t $\theta$) of all the samples under the model
+If we would like to realize such a modeled distribution, we can use a suitable model family chosen as \\(p_\theta(x)\\), with unknown parameters \\(\theta\\), so that the problem boils down to maximizing the average (log-)likelihood (w.r.t \\(\theta\\)) of all the samples under the model
+
 $$\theta^* = \arg \max_\theta \mathbb{E}_{x \sim q_{\text{data}}(x)} [\log p_\theta(x)] \approx \arg \max_\theta \frac{1}{N} \sum_{n=1}^N \log p_\theta(x^{(n)})$$
-where defining an arbitrary parametric density $p_\theta(x)$ is not as easy as it looks. 
+
+where defining an arbitrary parametric density \\(p_\theta(x)\\) is not as easy as it looks. 
 
 
-There was one aspect of $p_\theta$ that is widely considered to be the evil behind this difficulty – the normalizing constant that stems from the axiom of probability
+There was one aspect of \\(p_\theta\\) that is widely considered to be the evil behind this difficulty – the normalizing constant that stems from the axiom of probability
+
 $$p_\theta(x) = \frac{\tilde{p}_\theta(x)}{\int_x \tilde{p}_\theta(x)}$$
+
 A smart solution to this would be brought up in chapters to follow.
 
 
-In summary, in the space of all pixel combination, even though natural images are a _tiny subset_ of all possible images, they carry _almost all_ the probability mass in $p(x)$.
+In summary, in the space of all pixel combination, even though natural images are a _tiny subset_ of all possible images, they carry _almost all_ the probability mass in \\(p(x)\\).
 This is the benefit of getting a modeled distribution that is close to true distribution.
 Equivalently, the closer a modeled distribution to the true distribution, the more probability of observed data getting sampled.
 
 
-The problem of generative modeling can be posed as parametric density estimation using a finite set of observed samples $\{x^{(n)}\}^N_{n=1}$ from a true but unknown data distribution $p_{true}(x)$.
-The observed data $x$ are observed because there is a true distribution out there, and the data point represented by the observed data occupies most of the probability mass of the true distribution.
-There should be a value measuring the probability of observing those $x$. 
+The problem of generative modeling can be posed as parametric density estimation using a finite set of observed samples \\(\{x^{(n)}\}^N_{n=1}\\) from a true but unknown data distribution \\(p_{true}(x)\\).
+The observed data \\(x\\) are observed because there is a true distribution out there, and the data point represented by the observed data occupies most of the probability mass of the true distribution.
+There should be a value measuring the probability of observing those \\(x\\). 
 
 
 

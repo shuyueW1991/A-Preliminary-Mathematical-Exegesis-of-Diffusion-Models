@@ -1,18 +1,18 @@
 ---
 layout: home
-title: "Donate"
-nav_order: 4
+title: "Buy me coffee(s)"
+nav_order: 10
 
 ---
 
-Please buy me coffee(s):
+Please buy me coffee(s). Use Alipay to scan this:
 <div style="text-align: center;">
   <img src="./assets/images/alipay.png" style="width: 45%; max-width: 400px; height: auto; margin: 0 auto;">
 </div>
 
 
 
-Sponsor list (top 20 in donating amounts):
+Sponsor list (top 20 in sponsorship):
 
 - Emzan Technology Ltd., Hong Kong SAR, China.
 
