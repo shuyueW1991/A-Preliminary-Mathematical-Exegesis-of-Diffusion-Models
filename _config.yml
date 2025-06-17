@@ -1,35 +1,82 @@
-title: PrgM2 /pR\'gem/2
-theme: just-the-docs
-url: "https://shuyueW1991.github.io/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models"
+# title: PrgM2 /pR\'gem/2
+# theme: just-the-docs
+# url: "https://shuyueW1991.github.io/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models"
+# baseurl: "/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models"
+
+
+# # Just the Docs configuration
+# just_the_docs:
+#   collections:
+#     book:
+#       output: true
+
+
+
+# head_scripts:
+#   - /assets/js/custom.js
+#   - custom-head.html
+
+# plugins:
+#   - github-pages
+
+# # Enable kramdown for LaTeX
+# markdown: kramdown
+# kramdown:
+#   math_engine: mathjax
+#   syntax_highlighter: rouge
+
+# head_scripts:
+#   - https://polyfill.io/v3/polyfill.min.js?features=es6
+#   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML
+
+# mathjax:
+#   tex:
+#     inlineMath: [ ['$','$'], ["\\(","\\)"] ]
+#     processEscapes: true  # Critical for dollar signs
+
+
+
+
+title: "PrgM2 /pR'gem/2"
+description: "A preliminary mathematical exegesis of diffusion models"
+
+# Theme configuration
+remote_theme: just-the-docs/just-the-docs
+
+# Site URL configuration
+url: "https://shuyueW1991.github.io"
 baseurl: "/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models"
 
+# Collections configuration
+collections:
+  book:
+    output: true
 
-# Just the Docs configuration
-just_the_docs:
-  collections:
-    book:
-      output: true
-
-
-
-head_scripts:
-  - /assets/js/custom.js
-  - custom-head.html
-
-plugins:
-  - github-pages
-
-# Enable kramdown for LaTeX
+# Markdown and math configuration
 markdown: kramdown
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
 
-head_scripts:
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML
+# Plugins (required for GitHub Pages)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
 
-mathjax:
-  tex:
-    inlineMath: [ ['$','$'], ["\\(","\\)"] ]
-    processEscapes: true  # Critical for dollar signs
+# MathJax configuration
+head_scripts: |
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
