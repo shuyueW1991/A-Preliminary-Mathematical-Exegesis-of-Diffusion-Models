@@ -22,12 +22,14 @@ I understand the frustration all too well.
 
 
 The fundamental idea behind diffusion models is rarely stated outright in most tutorials: like all generative AI, diffusion models attempt to aim to replicate what the nature offers—most often, images—in our own way.
-As for the term "diffusion", it derives from a specific component of its underlying mechanism, which will be examined in detail in Chapter III of this booklet.
+As for the term "diffusion", it derives from a specific component of its underlying mechanism, which will be examined in detail in Chapter 3 of this booklet.
 Prior to delving into its technical foundations, we first establish the overarching objective shared by all generative AI paradigms: the development of models capable of synthesizing natural images. 
 As the discussion progresses, the distinctive characteristics inherent to diffusion models will emerge.
 
 
-While preparing for a lecture on diffusion model and their SOTA technology at Emzan Technology Co. for their department of [autoslide.cc](https://autoslide.cc/),  I realized something: many of us needs a booklet on diffusion models that is mathematically rigorous yet accessible, one that strips away the noise and delivers the true, deep intuition behind the framework.
+While preparing for a lecture on diffusion model and its SOTA applications at Emzan Technology Co. Ltd. for their department of [autoslide.cc](https://autoslide.cc/), I realized something: many of us needs a booklet on diffusion models that is mathematically rigorous yet accessible, one that strips away the noise and delivers the true, deep intuition behind the framework.
+
+
 This booklet is my attempt to share what I’ve learned about diffusion models—both the math behind them and how they’ve evolved via logic.
 I’ve tried to write it like something where ideas build naturally. 
 The math is precise by my best, but I hope it feels more like following a story than reading a textbook.
@@ -51,10 +53,10 @@ By making these deliberate concessions explicit, the booklet ensures readers are
 
 
 The booklet is divided into four chapters:
-- Chapter I dismantles the seemingly simple mantra _"maximize p(x)"_—an idea so deceptively complex that it demands an entire chapter.
-- Chapter II offers a clear, concise derivation of the ELBO.
-- Chapter III unlocks the soul of diffusion model, i.e. the perspective of distribution transition that brings score into the game.
-- Chapter IV immediately implements mathematics into a robust, actionable practice.
+- Chapter 1 dismantles the seemingly simple mantra _"maximize p(x)"_—an idea so deceptively complex that it demands an entire chapter.
+- Chapter 2 offers a clear, concise derivation of the ELBO.
+- Chapter 3 unlocks the soul of diffusion model, i.e. the perspective of distribution transition that brings score into the game.
+- Chapter 4 implements the learnt mathematics into robust, actionable practices.
 
 
 As you explore this booklet, I hope you’ll feel the deep satisfaction of genuine intellectual engagement. 
@@ -65,7 +67,7 @@ If I’ve done my job right, these concepts won’t feel like borrowed knowledge
 
 <br><br>
 
-At Бишкек, Кыргызстан
+Near Бишкек, Кыргызстан
 
 June, 2025
 
