@@ -46,6 +46,7 @@ Each such device will be explicitly introduced and justified:
 - The use of KL divergence to measure distributional distances, along with its mathematical properties and role in derivations.
 - The Itô SDE and Fokker-Planck equation that evolves the sampled data distribution in the long run.
 - Central Limit Theorem, that provides a mathematically convincing path to the beautiful Gaussian distribution.
+
 By making these deliberate concessions explicit, the booklet ensures readers aren’t left puzzling over sudden leaps in reasoning.
 
 
