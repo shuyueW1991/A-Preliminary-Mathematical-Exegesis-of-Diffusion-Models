@@ -33,6 +33,7 @@ The author reserves all right. No copy without the author's consent. No re-distr
 <br>
 
 <div style="text-align: left; font-size: 1.0em;">
-[init]2025/06/16. Created vibe with jeykll and just-the-doc. Uploaded chapters 0, 1, and 2, as well as other stuff.
+[init]2025/06/16. Created vibe with jeykll and just-the-doc. Uploaded chapters 0, 1, and 2.
+[grow]2025/06/18. Uploaded Chapter 3. Fixed some typos.
 </div>
 

@@ -63,14 +63,13 @@ The integral is over all possible values of \\(z\\), which is computationally 
 Example: if \\(z\\) has 100 dimensions and we discretize each dimension into just 10 values, the number of terms in the sum grows as much as \\(10^{100}\\).
 The decoder \\(p_\theta(x|z)\\) , like other mathematical things in machine learning that is beyond explicit expression,  is usually modeled by a neural network. 
 To such a complex nonlinear function,  there’s no analytical formula for integrating it over \\(z\\), even if \\(p(z)\\) is as simple as Gaussian.
-Suppose we repeat  $N$ times to yield the approximation:
+Suppose we repeat  $$N$$ times to yield the approximation:
 
 $$p_{\boldsymbol{\theta}}(x) = \int p_{\theta}(x|z)p(z)dz \approx \frac{1}{N}\sum_{i=1}^N p_{\theta}(x|z^{(i)})$$
 
-This approximation converges to the true expectation as $N \to \infty$ by the law of large numbers. 
-We optimize parameters $\theta$ to maximize $p_{\theta}(x)$, thereby improving the model's fit to the observed data while maintaining the learned low-dimensional structure.
-However, it takes very large number to await the valid $N$ to come.
-
+This approximation converges to the true expectation as $$N \to \infty$$ by the law of large numbers. 
+We optimize parameters $$\theta$$ to maximize $$p_{\theta}(x)$$, thereby improving the model's fit to the observed data while maintaining the learned low-dimensional structure.
+However, it takes very large number to await the valid $$N$$ to come.
 
 
 In addition, most \\(z\\) samples obtained in this approach will contribute negligibly to \\(p_\theta(x)\\), since \\(p(z)\\) is uninformed about \\(x\\), so most \\(z\\) values will lead to \\(p_\theta(x∣z)≈0\\), just consider how much `natural`images occupies the whole space.
