@@ -6,8 +6,8 @@ nav_order: 1
 ---
 
 <div style="text-align: left; font-size: 1.8em;">
-A preliminary mathematical exegesis of diffusion models
-<br> --  Gaining Clarity From True Understanding
+A Preliminary Mathematical Exegesis of Diffusion Model
+<br> --  gaining clarity from true understanding
 </div>
 
 
