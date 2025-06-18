@@ -519,6 +519,7 @@ Using Bayes' rule, the reverse conditional density is:
 $$
 \log p(\mathbf{x}_t \mid \mathbf{x}_{t+\varepsilon}) = \log p(\mathbf{x}_{t+\varepsilon} \mid \mathbf{x}_t) + \log p_t(\mathbf{x}_t) - \log p_{t+\varepsilon}(\mathbf{x}_{t+\varepsilon}).
 $$
+
 For small \\(\varepsilon\\), we approximate 
 
 $$\log p_{t+\varepsilon}(\mathbf{x}_{t+\varepsilon}) \approx \log p_t(\mathbf{x}_{t+\varepsilon})$$
@@ -1052,7 +1053,7 @@ And this echoes Tweedie's Formula.
 I believe it is about time to close this long chapter.
 Now let's turn our attention to diffusion model architecture again.
 
-Be it VAEs, GANs or NFs, their generative process in sampling is a density transformation of this form 
+Be it VAE (Variational Autoencoders), GAN or NF (Normalizing Flows), their generative process in sampling is a density transformation of this form 
 
 $$x=f_\theta(z),\text{ where }z\sim \mathcal{N}(0,I).$$
 
