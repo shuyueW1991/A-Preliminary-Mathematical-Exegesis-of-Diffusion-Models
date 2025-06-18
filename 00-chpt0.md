@@ -59,6 +59,8 @@ The booklet is divided into four chapters:
 - Chapter 4 implements the learnt mathematics into robust, actionable practices.
 
 
+For what it's worth, don’t skim through this booklet.
+
 As you explore this booklet, I hope you’ll feel the deep satisfaction of genuine intellectual engagement. 
 I’ve written this with our community of practitioners in mind: learners who crave not just theoretical clarity, but practical mastery. 
 Every page is designed to equip you with knowledge that’s both immediately useful in your work and foundational to advancing our collective grasp of this field.

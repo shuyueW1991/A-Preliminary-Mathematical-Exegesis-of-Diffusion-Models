@@ -181,7 +181,7 @@ Its variance is:
  $$\text{Var}(u_i v_i) = \mathbb{E}[u_i^2 v_i^2] - (\mathbb{E}[u_i v_i])^2 = (\sigma_u^2 + \mu_u^2)(\sigma_v^2 + \mu_v^2) - \mu_u^2 \mu_v^2=\sigma^2​_u\sigma_v^2​+\sigma^2​_v\mu_u^2​+\sigma^2​_u\mu_v^2​.$$
 
 
-Here comes the first _deux ex machina_ of the booklet:
+Here comes the first _deus ex machina_ of the booklet:
 >The Chebyshev inequality provides a bound on the probability that a random variable \\(X\\) deviates from its mean \\(\mu\\) by more than \\(k\\) standard deviations \\(\sigma\\), stating that \\(\Pr(\|X - \mu\| \geq k\sigma) \leq \frac{1}{k^2}\\) for any \\(k > 0\\). 
 
 
