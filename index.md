@@ -18,7 +18,7 @@ A preliminary mathematical exegesis of diffusion models
 A PrgM2 (/pRˈɡem/2)'s work
 </div>
 
-<div style="text-align: center; font-size: 0.4em;">
+<div style="text-align: center; font-size: 0.8em;">
 The author reserves all right. No copy without the author's consent. No re-distribution without the author's consent. Let this thing just be minor contribution to our culture, a'ight? be cool.
 </div>
 
