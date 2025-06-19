@@ -110,6 +110,17 @@ This is called  the Langevin equation,  (one of) the soul(s) of diffusion model.
 The drift term resembles pushing particles toward regions where  is larger.
 The diffusion term obviously gives its name to the diffusion model. 
 
+It is noted that  the $$\mu(x)$$ and $$\sigma(x)$$ can be multiplied with some variables constant against $$x$$, while the converging to Gaussian still holds:
+$$\begin{align}
+\mu(x) &= \beta(t) \frac{1}{2}\nabla_x \log p(x)  \\
+\sigma(x) &= \sqrt{\beta(t)}
+\end{align}$$
+
+which can verified by yourself.
+The choice $$\beta(t)$$ is preparatorial for the noise schedule in much of literature in community.
+We will have the discussion in the next chapter. 
+
+
 It appears that it is the \\(\nabla_x \log p(x_t)\\) in the drift term that guides the process toward the target distribution \\(p(x)\\) after getting the stationary distribution \\(q_{stationary}(x)\\).
 For numerical implementation, choose step size \\(\epsilon \approx dt > 0\\) to discretize other terms in the Langevin equation: 
 
