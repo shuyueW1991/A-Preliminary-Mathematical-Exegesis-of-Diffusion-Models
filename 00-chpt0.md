@@ -61,6 +61,8 @@ The booklet is divided into four chapters:
 
 For what it's worth, don’t skim through this booklet.
 
+And remember that this is not a cookbook with code snippets, but rather the mathematical bridge between ideas and codes.
+
 As you explore this booklet, I hope you’ll feel the deep satisfaction of genuine intellectual engagement. 
 I’ve written this with our community of practitioners in mind: learners who crave not just theoretical clarity, but practical mastery. 
 Every page is designed to equip you with knowledge that’s both immediately useful in your work and foundational to advancing our collective grasp of this field.
