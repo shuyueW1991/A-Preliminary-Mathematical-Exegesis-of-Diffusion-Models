@@ -14,7 +14,7 @@ Chapter 4 - Implementation on machine - get our hands dirty.
   <img src="./assets/images/fig_ch04.png" style="width: 45%; max-width: 400px; height: auto; margin: 0 auto;">
 </div>
 
-We now implement. 
+
 Implementation is one of the most beautiful thing that you have experienced on earth, because it is the last push from idea on your mind to reality.
 
 In Chapter 3, we came to know that above all, the training is noise prediction, as is demonstrated in the discussion of equivalent loss functions.
@@ -22,7 +22,9 @@ Chapter 3 also provides mathematical tools to push forward the realization of th
 We will offer the specific forward distribution transition formula, i.e.  noise-adding procedure/forward process, as well as the reverse distribution transition formula, i.e. the denoising procedure/reverse process.
 This chapter is aimed to push mathematics  to executable level.
 
-Let's implement!
+
+---
+
 
 We start from
 
@@ -189,6 +191,7 @@ $$
 x_{t-1} = \left(1 + \frac{\beta_t}{2}\right) x_t - \frac{\beta_t}{\sqrt{1 - \bar{\alpha}_t}} \epsilon_\theta(x_t, t) + \sqrt{\beta_t} \, z.
 $$
 
+
 By far, all basic theoretical knowledge  for diffusion models  is illustrated.
 Among most of the diffusion models, all variants use the same  loss 
 
@@ -199,10 +202,17 @@ All methods implicitly use Tweedie's formula to estimate the clean data \\(\hat{
 $$\boldsymbol{\epsilon}_\theta = -\sqrt{1-\bar{\alpha}_t} \nabla_{\mathbf{x}_t} \log p_t(\mathbf{x}_t)$$
 
 connects denoising to score matching.
+
+
+---
+
+
 Below, we will discuss the real code repository for the famous Latent Diffusion Model.
 Our discussion will include model architecture and its core building blocks, the underlying design rationale and key implementation details, and the connections to other leading diffusion-based approaches, etc.
 This chapter will remain open-ended by design, allowing for future expansions as new advancements emerge in this rapidly evolving field.
 It'll keep growing, fo' sho'.
+
+Let's implement!
 
 ---
 

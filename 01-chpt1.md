@@ -60,6 +60,9 @@ With this foundation, our focus will now shift entirely to modeling the true da
 For practitioners seeking to leverage generative AI—whether to develop custom models or satisfy theoretical curiosity—understanding this distribution's properties proves essential.
 
 
+----
+
+
 Now let's take a look at the high-dimensional tensor of  noise with \\(d\\) pixels, each being independent with identically distributed (i.e. i.i.d.) components.: 
 
 $$
@@ -229,6 +232,9 @@ That is to say, for zero-mean random vectors in high dimensions, if the distribu
 Under this circumstance,  the directions of noise vectors remain uniformly distributed over the sphere, which is quite unusual in low-dimensional space.
 
 
+----
+
+
 For a more intuitive grasp of high-dimensional noise , let's check how a perturbation added to a high-dimensional tensor would be like.
 Consider a random noise vector \\(\boldsymbol{\epsilon} \in \mathbb{R}^d\\), where each component \\(\epsilon_i\\) is sampled i.i.d. from a distribution with mean \\(0\\) and variance \\(\sigma^2\\). 
 By Chebyshev’s inequality, the normalized squared norm \\(\|\boldsymbol{\epsilon}\|_2^2/d\\) concentrates around \\(\sigma^2\\):
@@ -272,6 +278,9 @@ Third, the abundance of near-zero pixel values (from dark areas or low-intensity
 Approximately 50% of pixels in natural images often fall into this category.
 This norm discrepancy demonstrates that natural images cannot be modeled as random high-dimensional vectors with i.i.d. components. 
 Correlations indicated by smooth edges, textures, and objects imply that the data is not filling the high-dimensional space uniformly but instead concentrates near a lower-dimensional structure.
+
+
+----
 
 
 Another perspective to understand this is through entropy.
@@ -332,6 +341,9 @@ This reduction in entropy implies that natural images possess far fewer degrees 
 Natural images do not fill their high-dimensional pixel space uniformly; instead, they reside in an exponentially sparse subset.
 
 
+---
+
+
 On one hand, natural images are highly structured, more complex than a random noise.
 And they have smaller norms compared with a random noise.
 On the other hand, we have known that natural images are vanishingly rare in the space of all possible pixel combinations.
@@ -354,7 +366,7 @@ When generating new images, there might be chances of  wandering into low-probab
 However, if your model \\(p(x)\\) is good enough, sampling from it correctly will almost always give natural images, because  in a well-trained p(x), almost all the probability mass is concentrated around the natural image manifold.
 
 
-Note that Probability mass ≠ size of set: This is the key insight! 
+Note that probability mass ≠ size of set: this is the key insight! 
 The size of a set (e.g., natural images vs. noise) is not the same as its probability mass. 
 Probability mass depends on the distribution \\(p(x)\\).
 If you randomly sample pixels (uniformly), you'll almost always get noisy garbage.
@@ -371,11 +383,7 @@ $$\theta^* = \arg \max_\theta \mathbb{E}_{x \sim q_{\text{data}}(x)} [\log p_\th
 where defining an arbitrary parametric density \\(p_\theta(x)\\) is not as easy as it looks. 
 
 
-There was one aspect of \\(p_\theta\\) that is widely considered to be the evil behind this difficulty – the normalizing constant that stems from the axiom of probability
-
-$$p_\theta(x) = \frac{\tilde{p}_\theta(x)}{\int_x \tilde{p}_\theta(x)}$$
-
-A smart solution to this would be brought up in chapters to follow.
+----
 
 
 In summary, in the space of all pixel combination, even though natural images are a _tiny subset_ of all possible images, they carry _almost all_ the probability mass in \\(p(x)\\).

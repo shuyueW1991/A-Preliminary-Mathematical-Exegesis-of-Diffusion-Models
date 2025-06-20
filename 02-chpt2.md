@@ -19,7 +19,9 @@ In previous chapter, we have talked about finding the best modeled distribution 
 Question now is: how to maximize the \\(p(x)\\), i.e. optimize \\(p(x)\\) to achieve maximal likelihood?
 
 In this chapter, to get this game going, we will introduce two _deus ex machina_ magics.
-The first one in this chapter is the latent variables, denoted as \\(z\\).
+The first one in this chapter is
+> the latent variables, denoted as \\(z\\).
+
 The incorporation of latent variables in generative models represents a powerful paradigm grounded in critical insights about data structure. 
 Real-world datasets often exhibit complex dependencies of underlying, unobserved factors.
 For instance, image data contains implicit attributes like illumination geometry and object orientation that are not explicitly encoded in pixel values but significantly influence the observed patterns. 
@@ -35,6 +37,10 @@ The shadows are like our raw data (e.g., pixel values in images), mere surface
 The true forms are the latent variables—the unobserved, higher-dimensional factors (e.g., lighting, pose, or semantic meaning) that _generate_ the data, just as the objects outside the cave cast the shadows.
 In both cases, reality is richer than what we directly perceive. 
 Latent variables act as the hidden causes behind the observable effects, allowing models to infer the underlying structure that shapes the data.
+
+
+---
+
 
 We now try maximizing \\(p(x)\\) by utilizing latents \\(z\\).
 We're here to find the distribution in which the observed data \\(x_1, x_2, ..., x_n\\) would be highest in probability compared with other distributions.
@@ -74,6 +80,10 @@ However, it takes very large number to await the valid $$N$$ to come.
 
 In addition, most \\(z\\) samples obtained in this approach will contribute negligibly to \\(p_\theta(x)\\), since \\(p(z)\\) is uninformed about \\(x\\), so most \\(z\\) values will lead to \\(p_\theta(x∣z)≈0\\), just consider how much `natural`images occupies the whole space.
 Blindly sampling  \\(z \sim p(z)\\) provides little guidance to the decoder about which regions of \\(z\\)-space are relevant for generating meaningful \\(x\\).
+
+
+----
+
 
 A second approach of linking latents \\(z\\) to \\(p(x)\\)  is through chain rule of probability:  
 
@@ -194,6 +204,10 @@ To wrap up our second approach, the new way to estimate \\(p(x)\\) can be like t
 An expectation (even approximated with a few samples) gives a smoother, more stable gradient, because averaging over multiple samples would reduce variance.
 So let there  be  multiple samples instead of only one, and average the sum of their values in the final \\(p(x)\\)'s, which is basically the idea of Monte Carlo estimating.
 
+
+----
+
+
 Another concern is from \\(q_\phi(z|x)\\): like all denominators, it is  a headache for numerical computation. 
 It may lead to high variance if that is a poor approximation of the true encoder, which is a  source of numerical instability, notably when \\(q_\phi(z|x) \ll p(z)\\). 
 In such circumstance,  gradients during backpropagation can become extremely large (since gradients are inversely proportional to the denominator): e.g. for \\(f(x)=\frac{1}{x}\\), the gradient with respect to \\(x\\) is: \\(\frac{\partial f}{\partial x}=−\frac{a}{x^2}​\\).
@@ -224,8 +238,9 @@ Intuitively, we would like to replace \\(p(z|x)\\) with our modeled \\(q(z|x)\\)
 In this case, we need to have a measure of calculating the distance between two distributions.
 The measuring result should be a nonzero number, and should be within the range of 0 to 1 for two normalized distributions to be compared.
 
-There, here comes a second _deus ex machina_ invocation: KL divergence,  taking form of: 
 
+There comes a second _deus ex machina_ invocation: 
+> KL divergence,  taking form of 
 $$D_{KL}(P||Q)=\mathbb{E}_P[\log \frac{P(x)}{Q(x)}]=\mathbb{E}_P[\log P(x) -\log Q(x)].$$
 
 which is originally used to measure the difference between two distributions \\(P\\) and \\(Q\\) in the formula) across all values of the concerned variables.
@@ -293,7 +308,11 @@ $$\mathbb{E}_{q_\phi(z|x)}[\log \frac{p(x,z)}{q_\phi(z|x)}] \sim \mathbb{E}_{q_\
 
 I put \\(\sim\\) there instead of equal sign.
 
-People explore the hypothesizing structure of latents within the encoder-decoder methodology, hoping that by poking around the unknown universe of the `mechanism` of the true distribution of the observed data \\(x\\), some opportunities of improving tractability can be created in terms of modeling.
+
+----
+
+
+People explore the hypothesizing structure of latents within the encoder-decoder methodology, hoping that by poking around the unknown universe of the mechanism of the true distribution of the observed data \\(x\\), some opportunities of improving tractability can be created in terms of modeling.
 That is what we will discuss in the next chapter.
 After all, we are relieved to know that our focus has by far transferred from the incomputable \\(\log p(x)\\) to the promising proxy objective ELBO now.
 

@@ -42,6 +42,10 @@ Then we can manipulate \\(p(x)\\) with all the simple mathematical tricks throug
 
 Now, a critical question for now is: what should those encoder and decoder models be like?
 
+
+----
+
+
 We know that, to train any network, it requires supervised dataset. 
 For either of the two networks, there is always one end that is missing data: the output for the encoder, and the input for the decoder.-- we just don't know what the latent is like in effect.
 
@@ -111,6 +115,7 @@ The drift term resembles pushing particles toward regions where  is larger.
 The diffusion term obviously gives its name to the diffusion model. 
 
 It is noted that  the $$\mu(x)$$ and $$\sigma(x)$$ can be multiplied with some variables constant against $$x$$, while the converging to Gaussian still holds:
+
 $$\begin{align}
 \mu(x) &= \beta(t) \frac{1}{2}\nabla_x \log p(x)  \\
 \sigma(x) &= \sqrt{\beta(t)}
@@ -118,7 +123,6 @@ $$\begin{align}
 
 which can verified by yourself.
 The choice $$\beta(t)$$ is preparatorial for the noise schedule in much of literature in community.
-We will have the discussion in the next chapter. 
 
 
 It appears that it is the \\(\nabla_x \log p(x_t)\\) in the drift term that guides the process toward the target distribution \\(p(x)\\) after getting the stationary distribution \\(q_{stationary}(x)\\).
@@ -164,9 +168,13 @@ The Langevin dynamics equation is a fundamental technique for generating samples
 The original Langevin dynamics is deductive as the consequence of physics and mathematics. However, it does not harm to be seen as an empirical formula.
 
 The diffusion model we're discussing around here is accomplished via distribution transition between gaussian distribution to and from true data distribution.
-Now, what target distribution should \\(p(x)\\) be?
 
-Let's take another look at the discretized Langevin equation
+
+----
+
+But, what target distribution should \\(p(x)\\) be?
+
+Let's take another look at the discretized Langevin equation:
 
 $$x_{t+1} = x_t + \frac{\epsilon_t}{2} \nabla_x \log p(x_t) + \sqrt{\epsilon_t} z_t, \quad z_t \sim \mathcal{N}(0, \mathbf{I}).$$
 
@@ -179,8 +187,10 @@ $$
 In the first term, \\(\sum_{t=0}^{T-1} \frac{\epsilon_t}{2} \nabla_x \log p(x_t)\\), if \\(\epsilon_t \to 0\\) sufficiently slowly, this term remains bounded but does not dominate the long-term behavior.
 The second term, \\(\sum_{t=0}^{T-1} \sqrt{\epsilon_t} z_t\\), is a sum of independent, zero-mean Gaussian random variables with covariance \\(\sum_{t=0}^{T-1} \epsilon_t \mathbf{I}\\). 
 
-Here's a second _deus ex machina_ in this chapter: the Central Limit Theorem -
-> given a sufficiently large sample size \\(n\\), the sampling distribution of the mean of any independent, identically distributed (i.i.d.) random variables will approximate a normal distribution \\(\mathcal{N}(\mu, \sigma^2/n)\\), regardless of the original population's distribution. Formally, if \\(X_1, X_2, \dots, X_n\\) are i.i.d. with mean \\(\mu\\) and variance \\(\sigma^2\\), the sample mean $$\overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i$$ converges in distribution to a normal random variable:  
+Here's a second _deus ex machina_ in this chapter: 
+> Central Limit Theorem - given a sufficiently large sample size \\(n\\), the sampling distribution of the mean of any independent, identically distributed (i.i.d.) random variables will approximate a normal distribution \\(\mathcal{N}(\mu, \sigma^2/n)\\), regardless of the original population's distribution. Formally, if \\(X_1, X_2, \dots, X_n\\) are i.i.d. with mean \\(\mu\\) and variance \\(\sigma^2\\), the sample mean 
+$$\overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i$$ 
+converges in distribution to a normal random variable:  
 $$
 \sqrt{n}(\bar{X}_n - \mu) \xrightarrow{d} \mathcal{N}(0, \sigma^2).
 $$
@@ -387,16 +397,9 @@ $$x_{t+1} = x_t + \frac{\epsilon}{2}\nabla_x \log p(x_t) + \sqrt{\epsilon} z_t$$
 
 We check this in the background of sampling/noising  via distribution transition perspective.
 The equation describes a discrete-time stochastic process where \\(x_{t+1}\\) is obtained from \\(x_t\\)by taking a small step in the direction of the gradient of the log-probability \\(\nabla_x \log p(x_t)\\), scaled by a step size \\(\epsilon/2\\), and perturbed by Gaussian noise \\(\sqrt{\epsilon} z_t\\), where \\(z_t \sim \mathcal{N}(0, I)\\).  
-
-Langevin dynamics where the drift term is zero, and only the noise term contributes, leading to a pure diffusion process: it simply adds noise, and data is gradually corrupted by noise over a sequence of time steps toward the Gaussian.  
-
+If the drift term is zero and only the noise term contributes, this will lead to a pure diffusion process that simply adds noise, where the data is gradually corrupted over a sequence of time steps toward a gaussian.  
 Conversely, using  \\(\nabla_x \log p(x_t)\\)—the gradient of the log-probability of the data at each noise level, the equation can be guided with the direction in which the probability density increases most steeply, effectively "pulling" samples back toward the true data distribution.  
-
-The *time step* \\(t\\) plays a crucial role in diffusion models, as the amount of noise added or removed varies with time. 
-Typically, the noise schedule can be designed such that early steps introduce large noise (coarse structure), while later steps refine finer details. 
-The step size \\(\epsilon\\) controls the trade-off between the deterministic drift  and the stochastic noise component.  
-
-Thus, the Langevin equation provides a principled way to understand how iterative noise addition and denoising,  enable the generation of complex data distributions from simple noise. 
+Thus, the Langevin equation provides a principled way to understand how iterative noise addition and denoising  enable the generation of complex data distributions from simple noise. 
 
 Each denoising step must consider directional accuracy, because directions matter more than norms in high-dim spaces (since everything has similar norm). 
 The *direction of the noise vector* and how it's removed is critical.
@@ -485,6 +488,8 @@ The cosine of the angle between two random unit vectors converges in probability
 $$\theta(\mathbf{u}, \mathbf{v}) \xrightarrow{P} \frac{\pi}{2}$$
 
  
+ ---
+
 
 With so much illustration on the SDE data distribution transition on how to transform  an unknown distribution into normal distribution.
 What about the reverse one?
@@ -495,8 +500,7 @@ $$
 dx_t = \mu(x_t)dt + \sigma(x_t)dW_t
 $$
 
-again.
-We can now easily have: 
+again, as well as: 
 
 $$\mathbf{x}_{t+\varepsilon} \approx \mathbf{x}_t + \mathbf{\mu}(\mathbf{x}_t, t)\varepsilon + \sigma(t)\sqrt{\varepsilon} \cdot \boldsymbol{z},\quad \text{where }z\sim \mathcal{N}(0,I).$$
 
@@ -662,6 +666,7 @@ Here the plus before \\(\sigma(t)\\) is a denotation custom.
 This is Tweedie's formula, a powerful, popular and elegant formula in community.
 
 If we refer to the formula of transforming unknown true data distribution to normal gaussian as noise adding, and the formula of reverse process as denoising, then the Tweedie's formula beautifully shows optimal denoising (what we want) on the left side, and what we can compute (i.e. current position + score-based movement) on the right.
+
 It is noted that the situation of  \\(\mu(\mathbf{x},t)=0\\) is a typical common practice for the community to add noise.
 Simply, at a point \\(x\\), it tell us the best direction to step into (with little step-size \\(\delta\\)) if we would like to see a point \\(x'\\) with slightly higher likelihood
 
@@ -680,9 +685,14 @@ This is the mathematical miracle that makes diffusion models possible: a simple 
 The best Bayesian denoiser (in expectation) of the noisy input is given by the input plus a term involving the score function of the noisy marginal.
 In essence, instead of directly maximizing \\(\log p_{true}(x_{observed})\\) (which requires computing normalization constants), we can learn the geometry of the probability landscape through its gradients. 
 
+
+----
+
+
 Now, we are so glad to see ourselves capable of transitioning from an. unknown true data distribution, towards a general normal Gaussian,  and retrieve it back. 
 That's exactly how we manipulate the observed data as machine learning training materials!
 Now that we have at hand a bunch of true images as dataset. 
+
 Is it enough for us to start the training in diffusion model by comparing pixelwise difference from input and output images?
 Yes, but remember our goal is to maximize the data distribution.
 So we still need to go through one last block of the diffusion model theory --- the loss function.
@@ -850,6 +860,10 @@ This relationship explains why minimizing Fisher divergence is a valid alternati
 By shifting focus from "what is the density?" to "in which direction does density increase?", these methods provide a practical way to learn complex distributions without explicit normalization, while still enabling high-quality sampling through Langevin dynamics or similar approaches.
 Score bridges geometry of data and  denoising, which at least for me quite fascinating.
 Because, at first glance two operations in two realms: one in the geometry of data and the other in architecture of transformations.
+
+
+---
+
 
 The rest of the works now goes to  score prediction, as is usually called as score matching in community.
 Here's how it works in different approaches.
@@ -1061,6 +1075,10 @@ J_{DSM}(\theta)
 
 And this echoes Tweedie's Formula.
 
+
+----
+
+
 I believe it is about time to close this long chapter.
 Now let's turn our attention to diffusion model architecture again.
 
@@ -1105,6 +1123,6 @@ The equivalence of Fisher divergence vs. KL divergence as well as the use of Fok
 So the problem has become to train the score. 
 We finally discussed some score matching, giving us  insights to our work.
 
-On closing this chapter we have found ourselves understanding the basic spirit of diffusion model with consistent logic chain and concrete mathematic deduction.
+On closing this chapter, we have found ourselves understanding the basic spirit of diffusion model with consistent logic chain and concrete mathematic deduction.
 Up till now, you should be able to, with the several  _deus ex machina_ tricks, deduce the score matching formulae from scratch with a pencil and a sheet of paper.
 If you cannot do that, please review the three chapters; else, congrats, and you move on to Chapter 4.
