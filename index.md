@@ -39,8 +39,11 @@ The author reserves all right. No copy without the author's consent. No re-distr
 </div>
 
 <br>
+<br>
 
 <div style="text-align: right; font-size: 1.0em;">
 [TBD]
-....
+- latent diffuison model illustration
+- conditional generation SOTA
+- Mamba + diffusion
 </div>
