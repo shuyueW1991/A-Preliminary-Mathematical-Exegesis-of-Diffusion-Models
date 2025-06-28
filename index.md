@@ -34,16 +34,16 @@ The author reserves all right. No copy without the author's consent. No re-distr
 
 <div style="text-align: left; font-size: 1.0em;">
 [init]2025/06/16. Created vibe with jeykll and just-the-doc. Uploaded chapters 0, 1, and 2.
+</div>
+
+<div style="text-align: left; font-size: 1.0em;">
 [grow]2025/06/18. Uploaded Chapter 3. Fixed some typos.
+</div>
+
+<div style="text-align: left; font-size: 1.0em;">
 [grow]2025/06/18. Added aiding split line throught the chapters. Fixed some typos.
 </div>
 
 <br>
 <br>
 
-<div style="text-align: right; font-size: 1.0em;">
-[TBD]
-- latent diffuison model illustration
-- conditional generation SOTA
-- Mamba + diffusion
-</div>
