@@ -41,7 +41,11 @@ The author reserves all right. No copy without the author's consent. No re-distr
 </div>
 
 <div style="text-align: left; font-size: 1.0em;">
-[grow]2025/06/18. Added aiding split line throught the chapters. Fixed some typos.
+[grow]2025/06/18. Added aiding split line throughout the chapters. Fixed some typos.
+</div>
+
+<div style="text-align: left; font-size: 1.0em;">
+[grow]2025/06/28. Updated chapters 0 and 1. Fixed some typos.
 </div>
 
 <br>
