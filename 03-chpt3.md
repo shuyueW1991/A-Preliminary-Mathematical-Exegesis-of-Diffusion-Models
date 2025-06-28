@@ -157,7 +157,7 @@ $$
 $$
 the second moment (variance, since the mean is 0) is:
 $$
-\mathbb{E}[(\Delta W_t)^2] = \text{Var}(\Delta W_t) = \Delta t.
+\mathbb{E}[(\Delta W_t)^2] = \mathrm{Var}(\Delta W_t) = \Delta t.
 $$
 
 We can now yield the Langevin update rule: 
@@ -188,7 +188,7 @@ In the first term, \\(\sum_{t=0}^{T-1} \frac{\epsilon_t}{2} \nabla_x \log p(x_t)
 The second term, \\(\sum_{t=0}^{T-1} \sqrt{\epsilon_t} z_t\\), is a sum of independent, zero-mean Gaussian random variables with covariance \\(\sum_{t=0}^{T-1} \epsilon_t \mathbf{I}\\). 
 
 Here's a second _deus ex machina_ in this chapter: 
-> Central Limit Theorem - given a sufficiently large sample size \\(n\\), the sampling distribution of the mean of any independent, identically distributed (i.i.d.) random variables will approximate a normal distribution \\(\mathcal{N}(\mu, \sigma^2/n)\\), regardless of the original population's distribution. Formally, if \\(X_1, X_2, \dots, X_n\\) are i.i.d. with mean \\(\mu\\) and variance \\(\sigma^2\\), the sample mean 
+> Central Limit Theorem - given a sufficiently large sample size \\(n\\), the sampling distribution of the mean of any independent, identically distributed (i.i.d.) random variables will approximate a normal distribution \\(\mathcal{N}(\mu, \sigma^2/n)\\), regardless of the original population's distribution. Formally, if \\(X_1, X_2, \dots, X_n\\) are_i.i.d._with mean \\(\mu\\) and variance \\(\sigma^2\\), the sample mean 
 $$\overline{X}_n = \frac{1}{n} \sum_{i=1}^n X_i$$ 
 converges in distribution to a normal random variable:  
 $$
@@ -409,7 +409,7 @@ The quantity in question is  the gradient of the log of _true density_ of data
 $$\nabla_x\log q_{data}(x)\triangleq s(x).$$
 
 In this spirit, now we take another look at the tensors in the high-dimensional space that locates  the  gaussian as our target prior distribution therein: how are they correlated in terms of direction?
-Let \\(\mathbf{X} \in \mathbb{R}^d\\) be a random vector with i.i.d. entries \\(X_i \sim \mathcal{N}(0, 1)\\). 
+Let \\(\mathbf{X} \in \mathbb{R}^d\\) be a random vector with_i.i.d._entries \\(X_i \sim \mathcal{N}(0, 1)\\). 
 Then  \\(\mathbf{X} \sim \mathcal{N}(0, I_d)\\), and the Euclidean norm $$\|\mathbf{X}\|_2 ^2 = \sum_{i=1}^d X_i^2 \sim \chi^2 (d)$$ by definition.
 As \\(d \to \infty\\), the norm concentrates \\(\|\mathbf{X}\|_2 \approx \sqrt{d}\\) with high probability, as we have discussed in Chapter 1.
 We are now checking the distribution of \\(\mathbf{X}/\|\mathbf{X}\|_2\\) , i.e. the directional unit vectors.
@@ -439,7 +439,7 @@ For \\(\mathbf{u}, \mathbf{v} \sim \text{Unif}(S^{d-1})\\), we can have:
 
 $$\mathbf{u} = \frac{\mathbf{x}}{\|\mathbf{x}\|_2}, \quad \mathbf{v} = \frac{\mathbf{y}}{\|\mathbf{y}\|_2},$$
 
-where \\(\mathbf{x}, \mathbf{y} \sim \mathcal{N}(0, I_d)\\) i.i.d. with  each component \\(x_i, y_i \sim \mathcal{N}(0, 1)\\) i.i.d., and 
+where \\(\mathbf{x}, \mathbf{y} \sim \mathcal{N}(0, I_d)\\)_i.i.d._with  each component \\(x_i, y_i \sim \mathcal{N}(0, 1)\\) i.i.d., and 
 
 $$\langle \mathbf{u}, \mathbf{v} \rangle = \frac{\langle \mathbf{x}, \mathbf{y} \rangle}{\|\mathbf{x}\|\|\mathbf{y}\|}.$$
 
@@ -447,22 +447,22 @@ Then consider:
 
 $$ \langle \mathbf{x}, \mathbf{y} \rangle = \sum_{i=1}^d x_i y_i $$
 
-as a sum of \\(d\\) i.i.d. mean-0, variance-1 random variables.
+as a sum of \\(d\\)_i.i.d._mean-0, variance-1 random variables.
 Since \\(\mathbf{x}\\) and \\(\mathbf{y}\\) are independent: 
 
 $$\mathbb{E}[\langle \mathbf{x}, \mathbf{y} \rangle] = \mathbb{E}\left[\sum_{i=1}^d x_i y_i\right] = \sum_{i=1}^d \mathbb{E}[x_i y_i] = \sum_{i=1}^d \mathbb{E}[x_i]\mathbb{E}[y_i] = \sum_{i=1}^d 0 \cdot 0 = 0$$
 
 Again using independence: 
 
-$$\text{Var}[\langle \mathbf{x}, \mathbf{y} \rangle] = \text{Var}\left[\sum_{i=1}^d x_i y_i\right] = \sum_{i=1}^d \text{Var}[x_i y_i]$$
+$$\mathrm{Var}[\langle \mathbf{x}, \mathbf{y} \rangle] = \mathrm{Var}\left[\sum_{i=1}^d x_i y_i\right] = \sum_{i=1}^d \mathrm{Var}[x_i y_i]$$
 
 For each term \\(x_i y_i\\) where \\(x_i, y_i\\) are independent standard normal: 
 
-$$\text{Var}[x_i y_i] = \mathbb{E}[x_i^2 y_i^2] - (\mathbb{E}[x_i y_i])^2 = \mathbb{E}[x_i^2]\mathbb{E}[y_i^2] - 0 = 1 \cdot 1 = 1$$
+$$\mathrm{Var}[x_i y_i] = \mathbb{E}[x_i^2 y_i^2] - (\mathbb{E}[x_i y_i])^2 = \mathbb{E}[x_i^2]\mathbb{E}[y_i^2] - 0 = 1 \cdot 1 = 1$$
 
 Therefore: 
 
-$$\text{Var}[\langle \mathbf{x}, \mathbf{y} \rangle] = \sum_{i=1}^d 1 = d$$
+$$\mathrm{Var}[\langle \mathbf{x}, \mathbf{y} \rangle] = \sum_{i=1}^d 1 = d$$
 
 Since each \\(x_i y_i\\) is a product of independent normal random variables, and we're summing \\(d\\) such terms, the sum converges to a normal distribution. 
 In this way, we have: 

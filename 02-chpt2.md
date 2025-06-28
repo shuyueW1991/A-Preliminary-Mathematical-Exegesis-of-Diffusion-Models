@@ -243,7 +243,7 @@ There comes a second _deus ex machina_ invocation:
 > KL divergence,  taking form of 
 $$D_{KL}(P||Q)=\mathbb{E}_P[\log \frac{P(x)}{Q(x)}]=\mathbb{E}_P[\log P(x) -\log Q(x)].$$
 
-which is originally used to measure the difference between two distributions \\(P\\) and \\(Q\\) in the formula) across all values of the concerned variables.
+which is originally used to measure the difference between two distributions \\(P\\) and \\(Q\\) in the formula across all values of the concerned variables.
 Its most important feature is it is never goes negative, which provides quantitative relationship between the true and simulated  \\(\log p(x)\\).
 This is ensured by logarithm's concavity (i.e. Jensen's inequality): 
 
