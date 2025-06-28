@@ -209,6 +209,101 @@ This emerges naturally from the noise accumulation process, justifying the choic
 The Gaussian is not an arbitrary assumption, but the inevitable limiting distribution under the given SDE dynamics.
 That's also why we didn't put the Gaussian prior as a _deux ex machina_ thing: we simply said that we wanted a distribution to sample to be of maximum entropy given fixed mean and variance (cf. Chapter 1).
 
+
+
+We're now proving that with the definition of Shannon's entropy, if there are constraints of given fixed mean 
+
+$$\mu = E[X]$$
+
+and fixed variance 
+
+$$\sigma^2 = E[(X-\mu)^2],$$
+
+then it's Gaussian distribution that maximizes \\(H(X)\\):  
+
+$$p^*(x) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+>The problem is essentially another constraint optimization problem to >maximize differential entropy:  
+>
+>$$h(X) = -\int_{-\infty}^{\infty} p(x) \log p(x) \, dx$$
+>
+>subject to:  
+> 
+>$$\int_{-\infty}^{\infty}p(x)dx = 1 \quad\text{(Normalization)},$$
+>
+>$$\int_{-\infty}^{\infty} x p(x)dx = \mu \quad \text{(Mean)},$$
+>
+>and 
+>
+>$$\int_{-\infty}^{\infty} (x-\mu)^2 p(x)dx = \sigma^2 \quad \text>{(Variance)}$$
+>
+>Now the Lagrangian functional is:  
+>
+>
+>
+>$$\begin{align*}
+>  \mathcal{L}[p] = &- \int p(x) \log p(x) \, dx \\
+>  &+ \lambda_1 \left( \int p(x) \, dx - 1 \right) \\
+>  &+ \lambda_2 \left( \int x p(x) \, dx - \mu \right) \\
+>  &+ \lambda_3 \left( \int (x-\mu)^2 p(x) \, dx - \sigma^2 \right)
+>  \end{align*} $$
+>
+>
+>
+>As for a general functional of the form 
+>
+>$$
+>F[p] = \int f(x, p(x), p'(x)) \, dx，
+>$$
+>
+>the functional derivative is given by: 
+>
+>$$
+>\frac{\delta F}{\delta p(y)} = \frac{\partial f}{\partial p}\bigg|_{x=y} >- \frac{d}{dx}\left(\frac{\partial f}{\partial p'}\right)\bigg|_{x=y}.
+>$$
+>
+>Term by term, we calculate:
+>
+>$$\frac{\delta}{\delta p}\left(-\int p(x)\log p(x) \, dx\right) = -\left>(\log p(x) + p(x)\cdot\frac{1}{p(x)}\right) = -\log p(x) - 1,$$
+>
+>$$\frac{\delta}{\delta p}\left(\lambda_1 \int p(x) \, dx\right) = >\lambda_1,$$
+>
+>$$\frac{\delta}{\delta p}\left(\lambda_2 \int x p(x) \, dx\right) = >\lambda_2 x ,$$
+>
+>and 
+>
+>$$\frac{\delta}{\delta p}\left(\lambda_3 \int (x-\mu)^2 p(x) \, >dx\right) = \lambda_3 (x-\mu)^2.$$
+>
+>Combining all terms, and setting it to zero:
+>
+>$$\begin{align*}
+> \frac{\delta\mathcal{L}}{\delta p} = -\log p(x) - 1 + \lambda_1 + >\lambda_2 x + \lambda_3 (x-\mu)^2 &= 0 \\
+> \implies 
+> \log p(x) &= -1 + \lambda_1 + \lambda_2 x + \lambda_3 (x-\mu)^2 \\
+>  p(x) &= \exp\left(-1 + \lambda_1 + \lambda_2 x + \lambda_3 (x-\mu)>^2\right)
+>\end{align*}$$
+>
+>The exponential form can now be rewritten as:
+>
+>$$p(x) = e^{\lambda_1 - 1} \cdot e^{\lambda_2 x} \cdot e^{\lambda_3 >(x-\mu)^2} $$
+>
+>After completing the square and enforcing the constraints, we find:
+>
+>$$
+>\begin{align*}
+>\lambda_3 &= -\frac{1}{2\sigma^2} \\
+>\lambda_2 &= \frac{\mu}{\sigma^2} \\
+> e^{\lambda_1 - 1} &= \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{\mu^2}>{2\sigma^2}}
+>\end{align*}$$
+>
+>Substituting these back gives the Gaussian distribution:
+>
+>$$ p(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}>$$
+>
+> Among all distributions with a given mean and variance, the Gaussian >has the highest entropy (i.e., it makes the fewest assumptions). 
+>This makes it a natural default choice when no additional structure is assumed.
+
+
 Jubilation aside, how about we break it down in the context of Itô SDEs and the Fokker-Planck equation to see if uniform distribution is suitable for the job.
 Uniform distribution is not closed under additive  noise.
 Adding  noise (e.g. gaussian noise) to a uniform distribution also doesn't give another uniform distribution, because the process would quickly become non-uniform and less analytically tractable.
