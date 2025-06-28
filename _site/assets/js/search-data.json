@@ -41,16 +41,16 @@
     
     "relUrl": "/"
   },"6": {
-    "doc": "About Author",
-    "title": "About Author",
-    "content": "Shuyue Wang, the author. Working on Artificial Intelligence. Currently living at Shanghai. Please send messages to him via: henri_w_91@hotmail.com . ",
+    "doc": "About Author / Cite this",
+    "title": "About Author / Cite this",
+    "content": "Shuyue Wang, the author. Working on Artificial Intelligence. Currently living at Shanghai. Please send messages to him via: henri_w_91@hotmail.com . And Rednote: 9415290358 . You can cite this booklet via BibTeX entry: . @online{wang2025apreliminarymathematicalexegesisofdiffusionmodels, author = {Shuyue Wang}, title = {A preliminary mathematical exegesis of diffusion models}, year = {2025}, month = jun, url = {https://shuyuew1991.github.io/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models/}, language = {english}, % Optional } . ",
     "url": "/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models/resume.html",
     
     "relUrl": "/resume.html"
   },"7": {
-    "doc": "Buy me coffee(s) / become sponsor",
-    "title": "Buy me coffee(s) / become sponsor",
-    "content": "Please buy me coffee(s) or be my sponsor. Use Alipay to scan this: . Sponsor list (top 20 in sponsorship): . | Emzan Technology Ltd., Hong Kong SAR, China. | . ",
+    "doc": "Buy me coffee(s)",
+    "title": "Buy me coffee(s)",
+    "content": "Please buy me coffee(s) and be my sponsor. Use Alipay to scan this: . Sponsor list (top 20 in sponsorship): . | Emzan Technology Ltd., Hong Kong SAR, China. | . ",
     "url": "/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models/sponsor.html",
     
     "relUrl": "/sponsor.html"
