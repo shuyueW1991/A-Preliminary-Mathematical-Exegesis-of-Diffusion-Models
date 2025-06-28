@@ -71,5 +71,5 @@ If I’ve done my job right, these concepts won’t feel like borrowed knowledge
 
 Далеко от Бишкека, Кыргызстан
 
-First upload in June, 2025
+First uploaded in June 2025.
 
