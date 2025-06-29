@@ -26,6 +26,6 @@ You can cite this booklet via BibTeX entry:
   year         = {2025},
   month        = jun,
   url          = {https://shuyuew1991.github.io/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models/},
-  language     = {english},     % Optional
+  language     = {english},    
 }
 ```
