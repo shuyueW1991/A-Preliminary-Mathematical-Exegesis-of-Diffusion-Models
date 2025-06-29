@@ -4,35 +4,7 @@ title: "Cover Page"
 nav_order: 1
 
 ---
-<!-- local side -->
-<script>
-  if (localStorage.getItem('visitCount')) {
-    let count = parseInt(localStorage.getItem('visitCount')) + 1;
-    localStorage.setItem('visitCount', count);
-  } else {
-    localStorage.setItem('visitCount', 1);
-  }
-  document.getElementById('visitor-counter').innerText = localStorage.getItem('visitCount');
-</script>
 
-<p>You’ve visited this page <span id="visitor-counter">0</span> times.</p>
-
-
-<!-- statistics -->
-<script>
-  // Create a unique key for your page (e.g., based on page URL)
-  const pageKey = "visits-" + window.location.pathname.replace(/\//g, '-');
-  
-  // Increment the counter and fetch the current count
-  fetch(`https://api.countapi.xyz/hit/${pageKey}`)
-    .then(response => response.json())
-    .then(data => {
-      document.getElementById('visitor-counter').innerText = data.value;
-    });
-</script>
-
-<!-- Display the counter somewhere -->
-<p>Visitors: <span id="visitor-counter">Loading...</span></p>
 
 
 
