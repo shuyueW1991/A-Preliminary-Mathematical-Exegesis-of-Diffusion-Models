@@ -45,7 +45,11 @@ The author reserves all right. No copy without the author's consent. No re-distr
 </div>
 
 <div style="text-align: left; font-size: 1.0em;">
-[grow]2025/06/28. Updated chapters 0 and 1, appendix for DDPM. Fixed some typos.
+[grow]2025/06/28. Updated chapters 0 and 1. Uploaded appendix for DDPM. Fixed some typos.
+</div>
+
+<div style="text-align: left; font-size: 1.0em;">
+[grow]2025/06/29. Updated chapters 2, 3, and 4. 
 </div>
 
 <br>
