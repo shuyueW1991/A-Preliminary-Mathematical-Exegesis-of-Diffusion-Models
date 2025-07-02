@@ -42,13 +42,6 @@ This is because natural images exhibit a structured harmony, where pixels organi
 While mathematically valid as tensors, these random permutations are exploiting the full combinatorial space without yielding meaningful representation.
 
 
-Gaussian distribution also fails the game of filling pixels for natural images.  
-When fitted to image data through mean and covariance, sampling from gaussian yields only blurry, unrealistic outputs if using Gaussian approximations.
-You can also try it by yourself.
-The mean can be an indistinct average (like an "average face"), while the covariance captures merely pairwise pixel relationships.
-This failure illustrates a deeper truth: semantics has finer structure than simple enumerations, which necessitate more sophisticated approaches—such as diffusion models—capable of capturing the intricate structures inherent in natural images.
-
-
 **Maybe we can model _distribution of pixels_ that registers those patterns from real natural images statistically rather than relying on randomness?**
 
 
@@ -73,11 +66,11 @@ X=(X_1,X_2,…,X_d)
 $$
 
 We suppose \\(X_i\\) has finite variance \\(\sigma^2\\) (no matte what distribution it is under). 
-Since: 
+We introduce L2-norm: 
 
-$$∥X∥_2^2=\sum_{i=1}^dX_i^2$$
+$$∥X∥_2^2=\sum_{i=1}^dX_i^2.$$
 
-we have 
+Then we have 
 
 $$\mathbb{E}[\|X\|_2^2]=d\cdot\mathbb{E}[X_i^2]$$
 
@@ -266,8 +259,13 @@ It means that even small noise (\\(\sigma\\)) becomes significant in high dimens
 >\\(\|\mathbf{w}^T \boldsymbol{\epsilon}\| \leq \|\mathbf{w}\|_2 \sigma \sqrt{d}\\). 
 >
 
+
 In the context of images, small perturbations to pixel values can induce large changes in model predictions. 
 For a given portrait, it takes not much of effort to make it not portrait-like any more by perturbing the pixels.
+This is also major reason why Gaussian distribution also fails the game of filling pixels for natural images.  
+When fitted to image data through mean and covariance, sampling from a gaussian yields only blurry, unrealistic outputs if using Gaussian approximations.
+The mean can be an indistinct average (like an "average face"), while the covariance captures merely pairwise pixel relationships.
+
 
 
 ----
