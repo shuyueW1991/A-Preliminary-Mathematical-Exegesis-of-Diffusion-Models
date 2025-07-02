@@ -85,8 +85,7 @@ $$
 \frac{\sqrt{\mathrm{Var}(∥X∥_2^2)}}{E[∥X∥_2^2]}=\frac{\sqrt{d⋅\mathrm{Var}(X_i^2)}}{d⋅E[X_i^2]} \propto  \frac{1}{\sqrt{d}}→0\quad\text{as }d \rightarrow \infty.
 $$
 
-
-This vanishing result implies a concentration of data (i.e. the images) around their mean as if a thin shell of noises tend to gather the sample when the dimension increases.
+Viewing this vanishing result, you can imagine a thin **shell** of noises tend to gather the sample when the dimension increases, with concentrated data (i.e. the images) around their mean.
 
 
 We now check how this concentrated norm phenomenon for high-dimensional noise act in uniform and gaussian distributions, respectively ---
@@ -238,7 +237,8 @@ $$
 
 From the definition of inner vectorial product, if \\(\mu_u \mu_v = 0\\) (i.e. at least one mean is zero), there is orthogonality between noises within the shell.
 That is to say, for zero-mean random vectors in high dimensions, if the distribution to sample is zero-meaned, the sampled vectors are likely to be orthogonal to each other.
-Under this circumstance, the directions of high-dimensional noise vectors remain uniformly distributed over the sphere, which is quite unusual in low-dimensional space.
+Under this circumstance, the directions of high-dimensional noise vectors remain uniformly distributed over the sphere, which is quite unusual in low-dimensional space:
+>if vectors were not uniformly distributed (e.g., clustered along certain directions), we would observe many pairs with small angles (strong correlations) far from being orthogonal.
 
 
 ----
