@@ -5,6 +5,17 @@ nav_order: 1
 
 ---
 
+<head>
+  <title>A Preliminary Mathematical Exegesis of Diffusion Models</title>
+  <meta name="description" content="An in-depth mathematical analysis of diffusion models in machine learning.">
+  <meta name="keywords" content="diffusion models, mathematics, machine learning, exegesis">
+  <meta name="author" content="Shuyue Wang">
+  <!-- Open Graph (for social sharing) -->
+  <meta property="og:title" content="A Preliminary Mathematical Exegesis of Diffusion Models">
+  <meta property="og:description" content="An in-depth mathematical analysis of diffusion models in machine learning.">
+  <meta property="og:url" content="https://shuyuew1991.github.io/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models/">
+  <meta property="og:type" content="website">
+</head>
 
 <div style="text-align: left; font-size: 1.8em;">
 A Preliminary Mathematical Exegesis of Diffusion Model

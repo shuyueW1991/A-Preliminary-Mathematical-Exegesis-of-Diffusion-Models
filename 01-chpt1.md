@@ -4,6 +4,18 @@ title: Chapter 1 - The High-Dimensional Structure of True Data
 nav_order: 3
 ---
 
+<head>
+  <title>A Preliminary Mathematical Exegesis of Diffusion Models</title>
+  <meta name="description" content="An in-depth mathematical analysis of diffusion models in machine learning.">
+  <meta name="keywords" content="diffusion models, mathematics, machine learning, exegesis">
+  <meta name="author" content="Shuyue Wang">
+  <!-- Open Graph (for social sharing) -->
+  <meta property="og:title" content="A Preliminary Mathematical Exegesis of Diffusion Models">
+  <meta property="og:description" content="An in-depth mathematical analysis of diffusion models in machine learning.">
+  <meta property="og:url" content="https://shuyuew1991.github.io/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models/">
+  <meta property="og:type" content="website">
+</head>
+
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
 
 

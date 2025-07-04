@@ -1,1 +1,3 @@
-Sitemap: http://localhost:4000/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models/sitemap.xml
+User-agent: *
+Allow: /
+Sitemap: https://shuyuew1991.github.io/A-Preliminary-Mathematical-Exegesis-of-Diffusion-Models/sitemap.xml
