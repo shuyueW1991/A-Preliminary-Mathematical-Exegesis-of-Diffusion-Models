@@ -25,8 +25,9 @@ Currently living at Shanghai.
 
 Please send messages to him via: henri_w_91@hotmail.com
 
-And Rednote: 9415290358
+My Rednote: 9415290358
 
+LinkedIn:https://www.linkedin.com/in/shuyuew1991/
 
 
 You can cite this booklet via BibTeX entry:
