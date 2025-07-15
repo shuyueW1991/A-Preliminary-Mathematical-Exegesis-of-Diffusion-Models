@@ -24,16 +24,16 @@ Appendix - Code for DDPM.
 <br>
 
 
-DDPM is a fundamental diffuison model, which is often used as the demo for the algorithm, because it is the simplest of all its descendant variants.
+DDPM is a fundamental diffusion model, which is often used as the demo for the algorithm, because it is the simplest of all its descendant variants.
 To train a diffusion model such as DDPM, you can vaguely think of some blocks to define.
 It is not necessary to memorize anything: thinking as the script will do.
 We should easily envision that some common packages that should be imported, the details of which can be determined while coding the subsequent.
 We should make something to load the dataset, with some cleaning. A class can help us do this. 
 Then we come up with idea that the equivalent loss is the noise itself. 
-We can use UNet to predict that nosie.
+We can use UNet to predict that noise, while the reverse process that is **heavily** discussed in Chapter 4.
 With this, training paradigm and schedulers can be prepared.
 And that's all.
-Let's see a code coded by me.
+Let's see the code coded by me.
 
 The code is not written linearly piece by piece, a non-linear adaptation and change is unavoidable. The following is just one final look of the code.
 
@@ -191,7 +191,7 @@ def main():
 
 ```
 
-Ok, now we come to design the module to predict the noise, which is UNet.
+Ok, now we come to design the module to predict the noise, i.e. the UNet.
 
 
 ```python
@@ -291,10 +291,10 @@ To generate an image from noise:
    - Apply the reverse update rule (above) to compute \\(x_{t-1}\\).  
 3. Final output \\(x_0\\) is the generated image.  
 
-Why UNet Excels at Noise Prediction？
+Why UNet is deemed to excel at noise prediction？
 - **Multi-Scale Processing**: Noise exists at varying frequencies; UNet’s hierarchical structure captures both coarse and fine noise patterns.  
 - **Efficiency**: Skip connections mitigate information loss, unlike plain CNNs.  
-- **Flexibility**: Can be conditioned on timesteps, text, or other inputs (e.g., in latent diffusion models).  
+- **Flexibility**: Can be conditioned on timesteps, text, or other inputs.  
 
 
 
@@ -360,7 +360,7 @@ from tqdm import tqdm
 
 we're finished with the code of training script of DDPM.
 
-And now i provide you with the inference script:
+And now, I provide you with the inference script:
 ```python
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "7"
