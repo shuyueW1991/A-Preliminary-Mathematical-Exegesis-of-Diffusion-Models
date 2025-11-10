@@ -21,11 +21,7 @@ Shuyue Wang, the author.
 
 Working on Artificial Intelligence.
 
-Currently living at Shanghai.
-
-Please send messages to him via: henri_w_91@hotmail.com
-
-My Rednote: 9415290358
+My Rednote: 1001635410
 
 LinkedIn:https://www.linkedin.com/in/shuyuew1991/
 
